@@ -1,0 +1,43 @@
+.pr20 {
+    padding-right: 20px!important;
+}
+/*定宽度*/
+
+.mb20 {
+    margin-bottom: 20px!important;
+}
+
+textarea {
+    border: 1px solid #f3f3f3;
+    padding: .5em;
+    width: 50%;
+    resize: vertical;
+}
+textarea {
+    overflow: auto;
+}
+button, input, optgroup, select, textarea {
+    color: inherit;
+    font: inherit;
+    margin: 0;
+}
+
+/*职业其他*/
+.ml10 {
+    margin-left: 10px!important;
+}
+input[type=password], input[type=text] {
+    border: 1px solid #f3f3f3;
+    letter-spacing: 1px;
+    padding: .5em;
+}
+/*更新按钮*/
+input[type=submit] {
+    color: #fff;
+    background-color: #5bc0de;
+    border-color: #46b8da;
+    padding: 8px 14px;
+    font-size: 14px;
+    line-height: 1.3333333;
+    border-radius: 6px;
+}
