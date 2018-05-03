@@ -31,7 +31,8 @@ input::-ms-clear {
 .login {
     width:400px;
     height: 390px;
-    opacity: 0.9;
+    opacity: 0.7;
+    border-radius: 2%;
 }
 
 .header {
