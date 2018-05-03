@@ -1,0 +1,85 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link href="style/base.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+
+    <link href="style/person.css" rel="stylesheet" type="text/css"/>
+    <script src="js/person.js" type="text/javascript"></script>
+</head>
+<body>
+<div class="food-body user-info">
+    <div class="row">
+        <div class="col-md-3 avatar">
+            <div>
+                <img id="imgShow" src="images/init.jpg" class="img-thumbnail userImg"/>
+            </div>
+            <form class="form-horizontal" enctype='multipart/form-data' action='javascript:;' id="frmUploadFile">
+                <input type="file" name="files" />
+                <button class="btn btn-primary uploadBtn">上传</button>
+                <span class="help-inline" id="spanMessage"> </span>
+            </form>
+        </div>
+        <div class="col-md-6">
+            <ul>
+                <li><h1 class="user-name">鱼儿</h1></li>
+                <li>
+                    <span class="mr10 font12">女</span>
+
+                    <span class="mr10 font12"><i class="icon-profile icon-profile-home"></i>陕西,榆林</span>
+
+                    <span class="mr10 font12"><i class="icon-profile icon-profile-location"></i>陕西,西安</span>
+
+                    <span class="mr10 font12"><i class="icon-profile icon-profile-job"></i>IT/互联网</span>
+
+                    <span class="font12">加入三年</span>
+                </li>
+                <li><p class="mt10">热其生活从我做起</p></li>
+            </ul>
+        </div>
+        <div class="col-md-3 user-info-right">
+            <div class="setting">
+                <a href="personal-setting.html" class="font16">设置个人信息</a>
+            </div>
+            <div>
+                关注
+                <button class="bold font16">4</button>
+
+                被关注
+                <button class="bold font16">0</button>
+            </div>
+        </div>
+    </div>
+    <!--菜谱等展示-->
+    <div class="raw profile">
+        <ul id="profileTab" class="nav nav-pills">
+            <li class="active">
+                <a href="#A" data-toggle="tab">菜谱</a>
+            </li>
+            <li>
+                <a href="#B" data-toggle="tab">作品</a>
+            </li>
+            <li>
+                <a href="#C" data-toggle="tab">收藏</a>
+            </li>
+        </ul>
+
+        <div id="profileTabContent" class="tab-content">
+            <div class="tab-pane fade in active" id="A">
+                <p>嗯 我这里是点 击A时所显现</p>
+            </div>
+            <div class="tab-pane fade" id="B">
+                <p>我这里是B选项卡显现的</p>
+            </div>
+            <div class="tab-pane fade" id="C">
+                <p>我这里是C选项卡显现的</p>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>

@@ -20,8 +20,6 @@ $(function(){
 });
 
 $(document).ready(function() {
-
-
   $('#reg').click(function() {
     var nickName = $("#user").val().trim();
     var password = $("#passwd").val().trim();
@@ -47,25 +45,6 @@ $(document).ready(function() {
       $('#userCue').html("<font color='red'><b>用户名只能中英文，数字，下划线</b></font>");
       return false;
     }
-    /*注册请求*/
-    $.ajax({
-      type: "post",
-      url: "/user/register-POST",
-      data: {
-        nickName: nickName,
-        password: password,
-        email: email
-      },
-      dataType: 'json',
-      success: function(result) {
-        console.log(result.value);
-        $("#userCue").html(result.value);
-      },
-      error:function(e){
-        console.log(e.message);
-      }
-    });
-
     if (password.length < 6) {
       $('#passwd').focus();
       $('#userCue').html("<font color='red'><b>密码长度不能少于6位</b></font>");
@@ -76,25 +55,47 @@ $(document).ready(function() {
       $('#userCue').html("<font color='red'><b>邮箱格式有误</b></font>");
       return false;
     }
+    /*注册请求*/
+    $.ajax({
+      type: "POST",
+      url: "http://localhost:8088/user/register",
+      contentType: 'application/json',
+      data: JSON.stringify({
+        nickName: nickName,
+        password: password,
+        email: email
+      }),
+      dataType: 'json',
+      success: function(result) {
+        $("#userCue").html(result.value);
+      },
+      error:function(e){
+        console.log(e.message);
+      }
+    });
+
     $('#regUser').submit();
   });
   $('#log').click(function() {
-    console.log("bbb");
     var nickName = $("#u").val().trim();
     var password = $("#p").val().trim();
     /*console.log("nickName: " + nickName);
     console.log("password: " + password);*/
     $.ajax({
-      type: "post",
-      url: '/user/login-POST',
-      data: {
+      type: "POST",
+      url: 'http://localhost:8088/user/login',
+      contentType: 'application/json',
+      data: JSON.stringify({
         nickName: nickName,
         password: password
-      },
+      }),
       dataType: 'json',
       success: function (result) {
-        console.log(result.value);
-        $("#reminder").html(result.value);
+        //存储到sessionStorage
+        sessionStorage.setItem("username", nickName);
+        //跳到个人主页
+        window.location.href = "person.html";
+        alert(result.value);
       },
       error: function (e) {
         console.log(e.message);
