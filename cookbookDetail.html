@@ -2,19 +2,151 @@
 <html lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>一个菜谱详情</title>
+    <title>菜谱详情</title>
     <link href="style/bootstrap.min.css" rel="stylesheet">
     <link href="style/base.css" rel="stylesheet" type="text/css"/>
+    <style>
+        .page-title {
+            font-size: 34px;
+            line-height: 1.2;
+            font-weight: 700;
+            word-break: break-all;
+        }
+        .font12 a{
+            font-size: 20px;
+        }
+        .collect {
+            margin-top: 10px;
+        }
+
+        .collect .button {
+            overflow: hidden;
+            height: 40px;
+            line-height: 43px;
+            padding: 0;
+        }
+
+        .collect .collect-button {
+            width: 150px;
+            text-align: center;
+            padding: 10px 0;
+        }
+
+        .collect .large-button {
+            font-size: 15px;
+            padding: 1em 2em;
+        }
+
+        .button, .button:hover {
+            color: #fff;
+            background-color: #dd3915;
+        }
+
+        .w100 {
+            width: 100%;
+        }
+    </style>
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            var username = sessionStorage.getItem("username");
             var cookbookId = location.search.split('=')[1];
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8088/cookbook/' + cookbookId + '/' + username + '/info',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status === 10000) {
+                        /*var cookbookName;
+                         var cookImg;
+                         var cookDesc;
+                         var cookSteps;*/
+                        $("h1").html(data.value.cookbookName);
+                        $("#cookImg").attr("src", data.value.cookImg);
+                        $("#userPhoto").attr("src", data.value.userPhoto);
+                        $("#username").html(username);
+                        $("#cookDesc").html(data.value.cookbookDesc);
+                        for (var i = 0; i < data.value.materials.length; i++) {
+                            var source = data.value.materials[i].source;
+                            var amount = data.value.materials[i].amount;
+                            $("#table1").append($("<tr>").append($("<td>").append(source))
+                                    .append($("<td>").append(amount)));
+                        }
+                        $("#cookbookSteps").html(data.value.cookbookSteps);
+                        $("#cookbookTips").html(data.value.cookbookTips);
+                        $("#moveToWork").html('上传你做的' + data.value.cookbookName);
+                        $("#moveToWork").attr("href", 'uploadwork.html?cookbookId=' + cookbookId);
+                    }
+                },
+                error: function (err) {
+                    console.log(err.message);
+                }
 
+            });
+            /*$("#editCook").on('click', function (event) {
+
+            });*/
+            /*http://localhost:8088*/
+            $("#deleteCook").on('click', function (event) {
+                if(confirm("确认要删除？")){
+                    //删除请求，请求成功跳到个人主页
+                    $.ajax({
+                        url: 'http://localhost:8088/cookbook/' + cookbookId + '/' + username +'/delete',
+                        type: 'delete',
+                        success: function(data){
+                            if (data.status === 10000){
+                                console.log(data.value);
+                                window.location.href = 'person.html';
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err.message);
+                        }
+                    })
+                }
+            });
         });
     </script>
 </head>
 <body>
-
+<div class="food-body">
+    <div class="row">
+        <div class="col-md-4">
+            <h1 class="page-title"></h1>
+        </div>
+        <div class="col-md-4 col-md-offset-7 font12">
+            <a id="editCook">编辑</a>
+            <a id="deleteCook">删除</a>
+        </div>
+    </div>
+    <div>
+        <img id="cookImg" style="width: 706px;height: 439px" class="img-responsive"/>
+    </div>
+    <div class="row">
+        <div class="col-md-3 col-md-offset-7 collect">
+            <a href="javascript:void(0)" class="button large-button collect-button">收藏</a>
+        </div>
+    </div>
+    <div>
+        <a href="person.html" class="avatar">
+            <img id="userPhoto" style="width: 60px;height: 60px"/>
+            <span id="username"></span>
+        </a>
+    </div>
+    <div id="cookDesc" style="margin-top: 30px!important;"></div>
+    <table id="table1" class="table table-bordered ">
+        <tr>
+            <th class="text-center">用料</th>
+            <th class="text-center">数量</th>
+        </tr>
+    </table>
+    <h3>做法与步骤</h3>
+    <div id="cookbookSteps"></div>
+    <h3>小贴士</h3>
+    <div id="cookbookTips"></div>
+    <!--一个div展示菜谱的示例作品-->
+    <div class="collect"><a id="moveToWork" class="button large-button w100"></a></div>
+</div>
 </body>
 </html>

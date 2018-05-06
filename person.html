@@ -28,18 +28,6 @@
                         $("#imgShow").attr("src", data.userPhoto);//渲染用户头像
                         $("#addNum").html(data.addNum);
                         $("#addedNum").html(data.addedNum);
-                        /*var str = '<div class="row" >'
-                         + '<div class="col-sm-6 col-md-4">'
-                         + '<div class="thumbnail">'
-                         + '<a style="display: block"><img id="food-img" src='+ +' alt="..."/></a>'
-                         + '<div class="caption row">'
-                         + '<div class="col-md-6" id="food-name">'+ +'</div>'
-                         + '<div class="col-md-6" id="food-date">'+ +'</div>'
-                         + '</div>'
-                         + '<p id="food-description">'+ +'</p>'
-                         + '</div>'
-                         + '</div>'
-                         + '</div>';*/
                         for (var i = 0; i < data.cooks.length; i++) {
                             $("#cooks").append(' <div class="col-sm-6 col-md-4">'
                                     + '<div class="thumbnail">'
@@ -68,6 +56,9 @@
                             //插入数据
 
                         }
+                    },
+                    error: function (err) {
+                        console.log(err.message);
                     }
                 })
             });
@@ -82,6 +73,9 @@
                             //插入数据
 
                         }
+                    },
+                    error: function (err) {
+                        console.log(err.message);
                     }
                 })
             });
