@@ -1,0 +1,89 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link href="style/base.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script>
+        $(function () {
+            var username = sessionStorage.getItem("username");
+            var workTempId = "";
+            /*区别开图片和文字，分2次调用接口上传*/
+            $("input[type='file']").change(function (event) {
+                var formData = new FormData($("#frmUploadFile")[0]);
+                $.ajax({
+                    url: 'http://localhost:8088/work/uploadImg',
+                    type: 'POST',
+                    data: {file: formData},
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (10000 === data.status) {
+                            event.target.value = "";//防止二次上传无效
+                            $("#imgShow").attr('src', data.value.filepath);
+                            workTempId = data.value.workId;
+                            $("#spanMessage").html("上传成功");
+                        } else {
+                            $("#spanMessage").html("上传失败");
+                        }
+                        console.log('imgUploader upload success, data:', data);
+                    },
+                    error: function (err) {
+                        console.log(err.message);
+                        $("#spanMessage").html("与服务器通信有误");
+                    }
+                });
+            });
+            $("#uploadWorkBtn").click(function () {
+                var workDesc = $("textarea[name='desc']").val();
+                $.ajax({
+                    url: "http://localhost:8088/work/uploadMessage",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({userName: username, workId: workTempId, workDesc: workDesc}),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 10000) {
+                            console.log(data.value);//上传作品成功
+                        } else {
+
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err.message);
+                    }
+                })
+            })
+        });
+    </script>
+</head>
+<body>
+<div class="container">
+    <div class="food-body">
+        <h2>上传我做的手工彩虹蛋糕</h2>
+        <div>
+            <div>
+                <img id="imgShow" style="height: 400px;width: 600px;"/>
+            </div>
+            <form class="form-horizontal" enctype='multipart/form-data' action='javascript:;' id="frmUploadFile">
+                <input type="file" name="files"/>
+                <span class="help-inline" id="spanMessage"> </span>
+            </form>
+        </div>
+        <div>
+            <h4 class="text-left"><b>心得</b></h4>
+            <textarea name="desc" class="form-control" rows="5" placeholder="快来分享一波心得"
+                      style="overflow: auto"></textarea>
+        </div>
+        <button id="uploadWorkBtn" type="button" class="btn btn-info btn-lg" style="margin-top: 30px;">
+            上传作品
+        </button>
+    </div>
+</div>
+</body>
+</html>

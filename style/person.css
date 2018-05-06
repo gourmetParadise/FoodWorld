@@ -1,0 +1,102 @@
+.user-info {
+    margin-top: 30px;
+    max-width: 100%;
+}
+
+/*个人图片*/
+.avatar img {
+    width: 160px;
+    height: 160px;
+    border-radius: 50%;
+    vertical-align: middle;
+}
+
+.user-name {
+    margin: 0 0 16px;
+    line-height: 1.2;
+    font-weight: 700;
+}
+
+.mr10 {
+    margin-right: 10px !important;
+}
+
+.font12 {
+    font-size: 12px;
+    color: #909090;
+}
+
+.mt10 {
+    margin-top: 10px !important;
+}
+
+.user-info-right {
+    height: 160px;
+}
+
+.user-info-right div {
+    margin-bottom: 25px;
+}
+
+.bold {
+    font-weight: 700;
+}
+
+.font16 {
+    font-size: 16px;
+}
+
+button {
+    border: 0;
+    background-color: transparent;
+}
+
+/*菜谱等展示*/
+.profile{
+    margin-top: 5%;
+}
+#food-description {
+    text-align: center;
+    font-size: 16px;
+}
+
+#food-name {
+    width: 160px;
+    height: 20px;
+    text-align: left;
+    overflow: hidden;
+}
+
+#food-date {
+    width: 100px;
+    height: 20px;
+    text-align: right;
+    overflow: hidden;
+}
+
+#food-img:hover {
+    -webkit-transform: scale(1.04);
+    -moz-transform: scale(1.05);
+    -ms-transform: scale(1.05);
+    -o-transform: scale(1.05);
+    transform: scale(1.05);
+    -webkit-transition: 350ms ease;
+    -moz-transition: 350ms ease;
+    -ms-transition: 350ms ease;
+    -o-transition: 350ms ease;
+    transition: 350ms ease;
+}
+
+#food-img {
+    height: 180px;
+    -webkit-transform: scale(1, 1);
+    -moz-transform: scale(1, 1);
+    -ms-transform: scale(1, 1);
+    -o-transform: scale(1, 1);
+    transform: scale(1, 1);
+    -webkit-transition: 150ms ease;
+    -moz-transition: 150ms ease;
+    -ms-transition: 150ms ease;
+    -o-transition: 150ms ease;
+    transition: 150ms ease;
+}

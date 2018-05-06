@@ -9,74 +9,176 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
 
     <link href="style/person.css" rel="stylesheet" type="text/css"/>
-    <script src="js/person.js" type="text/javascript"></script>
+    <script type="text/javascript">
+        $(function () {
+            var username = sessionStorage.getItem("username");
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8088/user/' + username + '/userInfo',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status === 10000) {
+                        //插入数据
+                        $("h1").html(username + "的厨房");
+                        $("#userSex").html(data.userSex);
+                        $("#userSign").html(data.userSign);
+                        $("#nativePlace").html(data.nativePlace);
+                        $("#userCareer").html(data.userCareer);
+                        $("#imgShow").attr("src", data.userPhoto);//渲染用户头像
+                        $("#addNum").html(data.addNum);
+                        $("#addedNum").html(data.addedNum);
+                        /*var str = '<div class="row" >'
+                         + '<div class="col-sm-6 col-md-4">'
+                         + '<div class="thumbnail">'
+                         + '<a style="display: block"><img id="food-img" src='+ +' alt="..."/></a>'
+                         + '<div class="caption row">'
+                         + '<div class="col-md-6" id="food-name">'+ +'</div>'
+                         + '<div class="col-md-6" id="food-date">'+ +'</div>'
+                         + '</div>'
+                         + '<p id="food-description">'+ +'</p>'
+                         + '</div>'
+                         + '</div>'
+                         + '</div>';*/
+                        for (var i = 0; i < data.cooks.length; i++) {
+                            $("#cooks").append(' <div class="col-sm-6 col-md-4">'
+                                    + '<div class="thumbnail">'
+                                    + '<a href="cookbookDetail.html?cookbookId=' + data.cooks[i].cookbookId+ '"><img id="food-img" src=' + data.cooks[i].cookImg + ' alt="..."/></a>'
+                                    + '<div class="caption row">'
+                                    + '<div class="col-md-6" id="food-name">' + data.cooks[i].cookName + '</div>'
+                                    + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
+                                    + '</div>'
+                                    + '<p id="food-description">' + data.cooks[i].cookDesc + '</p>'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</div>')
+                        }
+                    }
+                }
+            });
+
+            $(".works").on('click', function (event) {
+                event.preventDefault();   //阻止默认事件
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8088/user/' + username + '/userWorks',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 10000) {
+                            //插入数据
+
+                        }
+                    }
+                })
+            });
+            $(".collects").on('click', function (event) {
+                event.preventDefault();   //阻止默认事件
+                $.ajax({
+                    type: 'GET',
+                    url: 'http://localhost:8088/user/' + username + '/userCollects',
+                    dataType: 'json',
+                    success: function (data) {
+                        if (data.status === 10000) {
+                            //插入数据
+
+                        }
+                    }
+                })
+            });
+
+            $("input[type=file]").change(function (event) {
+                console.log("is change?");
+                var formData = new FormData($("#frmUploadFile")[0]);
+                $.ajax({
+                    url: 'http://localhost:8088/user/uploadPhoto',
+                    type: 'POST',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (data.status === 10000) {
+                            event.target.value = "";//防止二次上传无效
+                            $("#imgShow").attr('src', data.value.filepath);
+                            $("#spanMessage").html("上传成功");
+                        } else {
+                            $("#spanMessage").html("上传失败");
+                        }
+                        console.log('imgUploader upload success, data:', data);
+                    },
+                    error: function (err) {
+                        console.log(err.message);
+                        $("#spanMessage").html("与服务器通信有误");
+                    }
+                });
+            });
+        });
+
+    </script>
 </head>
 <body>
 <div class="food-body user-info">
     <div class="row">
         <div class="col-md-3 avatar">
             <div>
-                <img id="imgShow" src="images/init.jpg" class="img-thumbnail userImg"/>
+                <img id="imgShow" src="images/init.png" class="img-thumbnail userImg"/>
             </div>
             <form class="form-horizontal" enctype='multipart/form-data' action='javascript:;' id="frmUploadFile">
-                <input type="file" name="files" />
-                <button class="btn btn-primary uploadBtn">上传</button>
-                <span class="help-inline" id="spanMessage"> </span>
+                <input type="file" name="files"/>
+                <span class="help-inline" id="spanMessage"></span>
             </form>
         </div>
         <div class="col-md-6">
             <ul>
-                <li><h1 class="user-name">鱼儿</h1></li>
+                <li><h1 class="user-name"></h1></li>
                 <li>
-                    <span class="mr10 font12">女</span>
+                    <span id="userSex" class="mr10 font12"></span>
 
-                    <span class="mr10 font12"><i class="icon-profile icon-profile-home"></i>陕西,榆林</span>
+                    <span id="nativePlace" class="mr10 font12">陕西,榆林</span>
 
-                    <span class="mr10 font12"><i class="icon-profile icon-profile-location"></i>陕西,西安</span>
-
-                    <span class="mr10 font12"><i class="icon-profile icon-profile-job"></i>IT/互联网</span>
-
-                    <span class="font12">加入三年</span>
+                    <span id="userCareer" class="mr10 font12">IT/互联网</span>
                 </li>
-                <li><p class="mt10">热其生活从我做起</p></li>
+                <li><p id="userSign" class="mt10">热其生活从我做起</p></li>
             </ul>
         </div>
         <div class="col-md-3 user-info-right">
-            <div class="setting">
+            <div>
                 <a href="personal-setting.html" class="font16">设置个人信息</a>
             </div>
             <div>
                 关注
-                <button class="bold font16">4</button>
+                <button id="addNum" class="bold font16"></button>
 
                 被关注
-                <button class="bold font16">0</button>
+                <button id="addedNum" class="bold font16"></button>
             </div>
+            <a href="uploadbook.html" class="font16">上传菜谱</a>
         </div>
     </div>
     <!--菜谱等展示-->
     <div class="raw profile">
-        <ul id="profileTab" class="nav nav-pills">
+        <ul id="profileTab" class="nav nav-tabs">
             <li class="active">
-                <a href="#A" data-toggle="tab">菜谱</a>
+                <a href="#cooks" data-toggle="tab">菜谱</a>
             </li>
             <li>
-                <a href="#B" data-toggle="tab">作品</a>
+                <a href="#works" data-toggle="tab" class="works">作品</a>
             </li>
             <li>
-                <a href="#C" data-toggle="tab">收藏</a>
+                <a href="#collects" data-toggle="tab" class="collects">收藏</a>
             </li>
         </ul>
 
         <div id="profileTabContent" class="tab-content">
-            <div class="tab-pane fade in active" id="A">
-                <p>嗯 我这里是点 击A时所显现</p>
+            <div class="row tab-pane fade in active" id="cooks">
+
             </div>
-            <div class="tab-pane fade" id="B">
-                <p>我这里是B选项卡显现的</p>
+            <div class="tab-pane fade" id="works">
+
             </div>
-            <div class="tab-pane fade" id="C">
-                <p>我这里是C选项卡显现的</p>
+            <div class="tab-pane fade" id="collects">
+
             </div>
         </div>
     </div>
