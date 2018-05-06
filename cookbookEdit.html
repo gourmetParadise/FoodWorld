@@ -3,8 +3,182 @@
 <head>
     <meta charset="UTF-8">
     <title>Title</title>
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link href="style/base.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script type="text/javascript">
+        $(function () {
+            var cookbookId = location.search.split('=')[1];
+            var username = sessionStorage.getItem("username");
+            var updateMaterials = [];
+            /*用料表格---*/
+            clearText();
+            $("#addBtn").click(function () {
+                $("#table1").append(getNewRow());
+                clearText();
+            });
+            $("#table1").on('click', ".delBtn", function () {
+                $(this).parent().parent().remove();
+                var rowNum = $(this).parent().prev().prev().prev().text();
+                console.log(rowNum);
+                //从materials里删除
+                updateMaterials.splice(rowNum - 1, 1);
+            });
+
+            function clearText() {
+                $("#source").val("");
+                $("#amount").val("");
+            }
+
+            function getNewRow() {
+                var source = $("#source").val();
+                var amount = $("#amount").val();
+                updateMaterials.push({source: source, amount: amount});
+                var btn = $("<input class='delBtn' type='button' value='删除' />");
+                return $("<tr>").append($("<td>").append(source))
+                        .append($("<td>").append(amount))
+                        .append($("<td>").append(btn));
+            }
+            /*用料表格---*/
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8088/cookbook/' + cookbookId + '/' + username + '/info',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status === 10000) {
+                        $("#cookbookName").val(data.value.cookbookName);
+                        $("#imgShow").attr("src", data.value.cookImg);
+                        $("#cookbookDesc").val(data.value.cookbookDesc);
+                        updateMaterials = data.value.materials;
+                        for (var i = 0; i < data.value.materials.length; i++) {
+                            var source = data.value.materials[i].source;
+                            var amount = data.value.materials[i].amount;
+                            $("#table1").append($("<tr>").append($("<td>").append(source))
+                                    .append($("<td>").append(amount))
+                                    .append($("<td>").append("<input class='delBtn' type='button' value='删除' />")));
+                        }
+                        $("#cookbookSteps").val(data.value.cookbookSteps);
+                        $("#cookbookTips").val(data.value.cookbookTips);
+                    }
+                },
+                error: function (err) {
+                    console.log(err.message);
+                }
+            });
+            //更新图片
+            $("input[type='file']").change(function (event) {
+                var formData = new FormData($("#frmUploadFile")[0]);
+                $.ajax({
+                    url: 'http://localhost:8088/cookbook/' + cookbookId + '/updateImg',
+                    type: 'PUT',
+                    data: formData,
+                    async: false,
+                    cache: false,
+                    contentType: false,
+                    processData: false,
+                    success: function (data) {
+                        if (10000 === data.status) {
+                            event.target.value = "";//防止二次上传无效
+                            $("#imgShow").attr('src', data.value.filepath);
+                            $("#spanMessage").html("上传成功");
+                        } else {
+                            $("#spanMessage").html("上传失败");
+                        }
+                        console.log('imgUploader upload success, data:', data);
+                    },
+                    error: function (err) {
+                        console.log(err.message);
+                        $("#spanMessage").html("与服务器通信有误");
+                    }
+                });
+            });
+            //更新其他信息
+            $("#uploadBookBtn").click(function () {
+                var cookbookName = $("#cookbookName").val();
+                var cookbookDesc = $("#cookbookDesc").val();
+                var cookbookSteps = $("#cookbookSteps").val();
+                var cookbookTips = $("#cookbookTips").val();
+
+                $.ajax({
+                    url: 'http://localhost:8088/cookbook/' + cookbookId + '/updateMessage',
+                    type: "PUT",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        cookbookName: cookbookName,
+                        cookbookDesc: cookbookDesc,
+                        cookbookSteps: cookbookSteps,
+                        cookbookTips: cookbookTips,
+                        materials: updateMaterials
+                    }),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 10000) {
+                            console.log(data.value);//更新菜谱成功
+                        } else {
+
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err.message);
+                    }
+                })
+            })
+
+        })
+    </script>
 </head>
 <body>
+<div class="container">
+    <div class="food-body">
+        <h2>菜名
+            <input type="text" id="cookbookName"/>
+        </h2>
+        <div>
+            <div>
+                <img id="imgShow" style="height: 400px;width: 600px;"/>
+            </div>
+            <form class="form-horizontal" enctype='multipart/form-data' action='javascript:;' id="frmUploadFile">
+                <input type="file" name="files"/>
+                <span class="help-inline" id="spanMessage"> </span>
+            </form>
+        </div>
+        <div style="margin:30px auto 50px ">
+            <textarea id="cookbookDesc" class="form-control" rows="2" placeholder="点击添加菜谱描述"
+                      style="overflow: auto"></textarea>
+        </div>
+        <h2 class="text-left">用料</h2>
+        <table>
+            <tr>
+                <td>用料：<input type="text" id="source" value="" placeholder="食材 : 如鸡蛋"/></td>
+                <td>数量： <input type="text" id="amount" value="" placeholder="用量 : 如一个"/></td>
+                <td><input type="button" id="addBtn" value="添加"></td>
+            </tr>
+        </table>
+        <table id="table1" class="table table-bordered ">
+            <tr>
+                <th class="text-center">用料</th>
+                <th class="text-center">数量</th>
+                <th class="text-center">操作</th>
+            </tr>
+        </table>
 
+        <div>
+            <h2 class="text-left">做法</h2>
+        <textarea id="cookbookSteps" class="form-control" rows="5"
+                  style="overflow: auto"
+                  placeholder="为了您的菜谱能够更好的显示，您可以：1.XXX 回车 2.XXX 回车 3.xxx......"></textarea>
+        </div>
+        <div>
+            <h4 class="text-left"><b>小贴士</b></h4>
+            <textarea id="cookbookTips" class="form-control" rows="2" placeholder="添加小贴士"
+                      style="overflow: auto"></textarea>
+        </div>
+        <button id="uploadBookBtn" type="button" class="btn btn-info btn-lg" style="margin-top: 30px;">
+            上传菜谱
+        </button>
+    </div>
+</div>
 </body>
 </html>
