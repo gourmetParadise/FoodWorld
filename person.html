@@ -94,7 +94,7 @@
                     success: function (data) {
                         if (data.status === 10000) {
                             event.target.value = "";//防止二次上传无效
-                            $("#imgShow").attr('src', data.value.filepath);
+                            $("#imgShow").attr('src', data.value);
                             $("#spanMessage").html("上传成功");
                         } else {
                             $("#spanMessage").html("上传失败");
