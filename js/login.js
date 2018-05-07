@@ -67,7 +67,9 @@ $(document).ready(function() {
       }),
       dataType: 'json',
       success: function(result) {
-        $("#userCue").html(result.value);
+        if(result.status === 10000){
+          $("#userCue").html(result.value);
+        }
       },
       error:function(e){
         console.log(e.message);
@@ -91,11 +93,12 @@ $(document).ready(function() {
       }),
       dataType: 'json',
       success: function (result) {
-        //存储到sessionStorage
-        sessionStorage.setItem("username", nickName);
-        //跳到个人主页
-        window.location.href = "person.html";
-        alert(result.value);
+        if(result.status === 10000){
+          //存储到sessionStorage
+          sessionStorage.setItem("username", nickName);
+          //跳到个人主页
+          window.location.href = "person.html";
+        }
       },
       error: function (e) {
         console.log(e.message);
