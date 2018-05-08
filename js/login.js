@@ -95,9 +95,9 @@ $(document).ready(function() {
       success: function (result) {
         if(result.status === 10000){
           //存储到sessionStorage
-          sessionStorage.setItem("username", nickName);
+          sessionStorage.setItem("user", nickName);
           //跳到个人主页
-          window.location.href = "person.html";
+          window.location.href = "person.html?username=" + nickName;
         }
       },
       error: function (e) {

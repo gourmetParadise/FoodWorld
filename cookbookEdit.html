@@ -10,7 +10,6 @@
     <script type="text/javascript">
         $(function () {
             var cookbookId = location.search.split('=')[1];
-            var username = sessionStorage.getItem("username");
             var updateMaterials = [];
             /*用料表格---*/
             clearText();
@@ -44,7 +43,7 @@
 
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:8088/cookbook/' + cookbookId + '/' + username + '/info',
+                url: 'http://localhost:8088/cookbook/' + cookbookId + '/info',
                 dataType: 'json',
                 success: function (data) {
                     if (data.status === 10000) {
@@ -72,7 +71,7 @@
                 var formData = new FormData($("#frmUploadFile")[0]);
                 $.ajax({
                     url: 'http://localhost:8088/cookbook/' + cookbookId + '/updateImg',
-                    type: 'PUT',
+                    type: 'post',
                     data: formData,
                     async: false,
                     cache: false,
@@ -103,7 +102,7 @@
 
                 $.ajax({
                     url: 'http://localhost:8088/cookbook/' + cookbookId + '/updateMessage',
-                    type: "PUT",
+                    type: "post",
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify({
                         cookbookName: cookbookName,

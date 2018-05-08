@@ -12,29 +12,30 @@
             font-weight: 700;
             word-break: break-all;
         }
-        .font12 a{
+
+        .font12 a {
             font-size: 20px;
+
         }
+
         .collect {
             margin-top: 10px;
         }
 
         .collect .button {
             overflow: hidden;
-            height: 40px;
-            line-height: 43px;
-            padding: 0;
+            height: 44px;
+            line-height: 44px;
         }
 
         .collect .collect-button {
-            width: 150px;
+            width: 98px;
+            display: inline-block;
             text-align: center;
-            padding: 10px 0;
         }
 
         .collect .large-button {
             font-size: 15px;
-            padding: 1em 2em;
         }
 
         .button, .button:hover {
@@ -45,27 +46,27 @@
         .w100 {
             width: 100%;
         }
+
+        .changeColor {
+            background-color: #ccc7c2;
+        }
     </style>
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            var username = sessionStorage.getItem("username");
+            var user = sessionStorage.getItem("user");
             var cookbookId = location.search.split('=')[1];
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:8088/cookbook/' + cookbookId + '/' + username + '/info',
+                url: 'http://localhost:8088/cookbook/' + cookbookId + '/info',
                 dataType: 'json',
                 success: function (data) {
                     if (data.status === 10000) {
-                        /*var cookbookName;
-                         var cookImg;
-                         var cookDesc;
-                         var cookSteps;*/
                         $("h1").html(data.value.cookbookName);
                         $("#cookImg").attr("src", data.value.cookImg);
                         $("#userPhoto").attr("src", data.value.userPhoto);
-                        $("#username").html(username);
+                        $("#username").html(data.value.username);
                         $("#cookbookDesc").html(data.value.cookbookDesc);
                         for (var i = 0; i < data.value.materials.length; i++) {
                             var source = data.value.materials[i].source;
@@ -75,8 +76,11 @@
                         }
                         $("#cookbookSteps").html(data.value.cookbookSteps);
                         $("#cookbookTips").html(data.value.cookbookTips);
-                        $("#moveToWork").html('上传你做的' + data.value.cookbookName);
                         $("#moveToWork").attr("href", 'uploadwork.html?cookbookId=' + cookbookId);
+                        $(".avatar").attr("href", 'person.html?username=' + data.value.username);
+                        //模态框菜谱名称和图片
+                        $("#myModalLabel").html(data.value.cookbookName);
+                        $("#cookCollectedImg").attr("src", data.value.cookImg);
                     }
                 },
                 error: function (err) {
@@ -88,13 +92,13 @@
                 window.location.href = 'cookbookEdit.html?cookbookId=' + cookbookId;
             });
             $("#deleteCook").on('click', function (event) {
-                if(confirm("确认要删除？")){
+                if (confirm("确认要删除？")) {
                     //删除请求，请求成功跳到个人主页
                     $.ajax({
-                        url: 'http://localhost:8088/cookbook/' + cookbookId + '/' + username +'/delete',
-                        type: 'delete',
-                        success: function(data){
-                            if (data.status === 10000){
+                        url: 'http://localhost:8088/cookbook/' + cookbookId + '/' + user + '/delete',
+                        type: 'post',
+                        success: function (data) {
+                            if (data.status === 10000) {
                                 console.log(data.value);
                                 window.location.href = 'person.html';
                             }
@@ -105,6 +109,61 @@
                     })
                 }
             });
+
+            //收藏
+            $("#btn_add").click(function () {
+                if ($(this).text() === '收藏') {
+                    $("#myModal").modal();
+                }
+            });
+            //触发保存按钮
+            $("#btn_submit").click(function () {
+                if (!$("#btn_add").hasClass("changeColor") && $("#btn_add").text() === '收藏') {
+                    $("#btn_add").text('已收藏');
+                    $("#btn_add").addClass("changeColor");
+                    console.log($("#myModalLabel").val());
+                    console.log($("textarea[name='collectReason']").val());
+                    //收藏菜谱
+                    $.ajax({
+                        url: 'http://localhost:8088/cookcollect/add',
+                        type: 'post',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({
+                            userName: user,
+                            cookbookId: cookbookId,
+                            cookbookName: $("#myModalLabel").val(),
+                            collectReason: $("textarea[name='collectReason']").val()
+                        }),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.status == 10000) {
+                                console.log(data.value);
+                            } else {
+
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err.message);
+                        }
+                    })
+                } else {
+                    //取消收藏菜谱
+                    $.ajax({
+                        url: 'http://localhost:8088/cookcollect/' + cookbookId + '/' + user + '/delete',
+                        type: 'post',
+                        success: function (data) {
+                            if (data.status === 10000) {
+                                console.log(data.value);
+                                $("#btn_add").text('收藏');
+                                $("#btn_add").removeClass("changeColor");
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err.message);
+                        }
+                    });
+                }
+            })
         });
     </script>
 </head>
@@ -120,15 +179,15 @@
         </div>
     </div>
     <div>
-        <img id="cookImg" style="width: 706px;height: 439px" class="img-responsive"/>
+        <img id="cookImg" style="width: 712px;height: 439px" class="img-responsive"/>
     </div>
     <div class="row">
         <div class="col-md-3 col-md-offset-7 collect">
-            <a href="javascript:void(0)" class="button large-button collect-button">收藏</a>
+            <a id="btn_add" href="javascript:void(0)" class="button large-button collect-button">收藏</a>
         </div>
     </div>
     <div>
-        <a href="person.html" class="avatar">
+        <a  class="avatar">
             <img id="userPhoto" style="width: 60px;height: 60px"/>
             <span id="username"></span>
         </a>
@@ -145,7 +204,38 @@
     <h3>小贴士</h3>
     <div id="cookbookTips"></div>
     <!--一个div展示菜谱的示例作品-->
-    <div class="collect"><a id="moveToWork" class="button large-button w100"></a></div>
+    <div class="collect"><a id="moveToWork" class="collect-button button large-button w100">上传你的作品</a></div>
+    <!--收藏模态框-->
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span
+                            aria-hidden="true">&times;</span></button>
+                    <h4 class="modal-title" id="myModalLabel"></h4>
+                </div>
+                <div class="modal-body">
+                    <div class="row">
+                        <div class="col-md-3">
+                            <img id="cookCollectedImg" style="width: 220px;height: 154px"/>
+                        </div>
+                        <div class="col-md-offset-2 col-md-7">
+                            <textarea name="collectReason" class="form-control" rows="7" placeholder="简述一下收藏理由"
+                                      style="overflow: auto"></textarea>
+                        </div>
+                    </div>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭
+                    </button>
+                    <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span
+                            class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
 </div>
 </body>
 </html>

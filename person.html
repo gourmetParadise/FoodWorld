@@ -11,8 +11,16 @@
     <link href="style/person.css" rel="stylesheet" type="text/css"/>
     <script type="text/javascript">
         $(function () {
-            var username = sessionStorage.getItem("username");
-
+            var user = sessionStorage.getItem("user");
+            var username = location.search.split('=')[1];
+            /*比较user与username,决定关注页面显示*/
+            if(user === username){
+                $('#self-follow').show();
+                $('#other-follow').hide();
+            }else{
+                $('#other-follow').show();
+                $('#self-follow').hide();
+            }
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8088/user/' + username + '/userInfo',
@@ -33,15 +41,18 @@
                                     + '<div class="thumbnail">'
                                     + '<a href="cookbookDetail.html?cookbookId=' + data.cooks[i].cookbookId+ '"><img id="food-img" src=' + data.cooks[i].cookImg + ' alt="..."/></a>'
                                     + '<div class="caption row">'
-                                    + '<div class="col-md-6" id="food-name">' + data.cooks[i].cookName + '</div>'
+                                    + '<div class="col-md-6" id="food-name">' + data.cooks[i].cookbookName + '</div>'
                                     + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
                                     + '</div>'
-                                    + '<p id="food-description">' + data.cooks[i].cookDesc + '</p>'
+                                    + '<p id="food-description">' + data.cooks[i].cookbookDesc + '</p>'
                                     + '</div>'
                                     + '</div>'
                                     + '</div>')
                         }
                     }
+                },
+                error: function (err) {
+                    console.log(err.message);
                 }
             });
 
@@ -107,6 +118,10 @@
                     }
                 });
             });
+
+            //关注
+
+            //取消关注
         });
 
     </script>
@@ -140,12 +155,15 @@
             <div>
                 <a href="personal-setting.html" class="font16">设置个人信息</a>
             </div>
-            <div>
+            <div id="self-follow">
                 关注
                 <button id="addNum" class="bold font16"></button>
 
                 被关注
                 <button id="addedNum" class="bold font16"></button>
+            </div>
+            <div id="other-follow">
+                <button id="addFollow" class="bold font16">关注</button>
             </div>
             <a href="uploadbook.html" class="font16">上传菜谱</a>
         </div>
