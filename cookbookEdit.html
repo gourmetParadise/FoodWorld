@@ -50,9 +50,9 @@
                 success: function (data) {
                     if (data.status === 10000) {
                         $("#cookbookName").val(data.value.cookbookName);
-                        $("#imgShow").attr("src", data.value.cookImg);
+                        $("#imgShow").attr("src", data.value.cookImage);
                         $("#cookbookDesc").val(data.value.cookbookDesc);
-                        updateMaterials = data.value.materials;
+                        updateMaterials = JSON.parse(data.value.materials);
                         for (var i = 0; i < data.value.materials.length; i++) {
                             var source = data.value.materials[i].source;
                             var amount = data.value.materials[i].amount;
