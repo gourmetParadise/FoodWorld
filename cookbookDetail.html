@@ -70,9 +70,10 @@
                         $("#userPhoto").attr("src", data.value.userPhoto);
                         $("#username").html(data.value.userName);
                         $("#cookbookDesc").html(data.value.cookbookDesc);
-                        for (var i = 0; i < data.value.materials.length; i++) {
-                            var source = data.value.materials[i].source;
-                            var amount = data.value.materials[i].amount;
+                        var materials = JSON.parse(data.value.materials);
+                        for (var i = 0; i < materials.length; i++) {
+                            var source = materials[i].source;
+                            var amount = materials[i].amount;
                             $("#table1").append($("<tr>").append($("<td>").append(source))
                                     .append($("<td>").append(amount)));
                         }
