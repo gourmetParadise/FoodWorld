@@ -102,12 +102,12 @@
                             for (var i = 0; i < cookCollectList.length; i++) {
                                 $("#collects").append(' <div class="col-sm-6 col-md-4">'
                                         + '<div class="thumbnail">'
-                                        + '<a href="cookbookDetail.html?cookbookId=' + cookCollectList.cookbookId + '"><img id="food-img" src=' + cookCollectList.cookImage + ' alt="..."/></a>'
+                                        + '<a href="cookbookDetail.html?cookbookId=' + cookCollectList[i].cookbookId + '"><img id="food-img" src=' + cookCollectList[i].cookImage + ' alt="..."/></a>'
                                         + '<div class="caption row">'
-                                        + '<div class="col-md-6" id="food-name">' + cookCollectList.cookbookName + '</div>'
+                                        + '<div class="col-md-6" id="food-name">' + cookCollectList[i].cookbookName + '</div>'
                                         + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
                                         + '</div>'
-                                        + '<p id="food-description">' + cookCollectList.collectReason + '</p>'
+                                        + '<p id="food-description">' + cookCollectList[i].collectReason + '</p>'
                                         + '</div>'
                                         + '</div>'
                                         + '</div>')
