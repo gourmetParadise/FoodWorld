@@ -85,7 +85,7 @@
                         $("#userPhoto").attr("src", data.value.userPhoto);
                         $("#username").html(data.value.userName);
                         $("#cookbookDesc").html(data.value.cookbookDesc);
-                        var materials = data.value.materials;
+                        var materials = data.value.ingreList;
                         for (var i = 0; i < materials.length; i++) {
                             var source = materials[i].source;
                             var amount = materials[i].amount;
