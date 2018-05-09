@@ -53,6 +53,7 @@
     </style>
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <script src="https://cdn.bootcss.com/marked/0.3.19/marked.min.js"></script>
     <script type="text/javascript">
         $(function () {
             var user = sessionStorage.getItem("user");
@@ -75,7 +76,7 @@
                             $("#table1").append($("<tr>").append($("<td>").append(source))
                                     .append($("<td>").append(amount)));
                         }
-                        $("#cookbookSteps").html(data.value.cookbookSteps);
+                        $("#cookbookSteps").html(marked(data.value.cookbookSteps));
                         $("#cookbookTips").html(data.value.cookbookTips);
                         $("#moveToWork").attr("href", 'uploadwork.html?cookbookId=' + cookbookId);
                         $(".avatar").attr("href", 'person.html?username=' + data.value.userName);
