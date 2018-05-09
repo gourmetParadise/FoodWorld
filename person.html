@@ -29,22 +29,23 @@
                     if (data.status === 10000) {
                         //插入数据
                         $("h1").html(username + "的厨房");
-                        $("#userSex").html(data.userSex);
-                        $("#userSign").html(data.userSign);
-                        $("#nativePlace").html(data.nativePlace);
-                        $("#userCareer").html(data.userCareer);
-                        $("#imgShow").attr("src", data.userPhoto);//渲染用户头像
-                        $("#addNum").html(data.addNum);
-                        $("#addedNum").html(data.addedNum);
-                        for (var i = 0; i < data.cooks.length; i++) {
+                        $("#userSex").html(data.value.user.userSex);
+                        $("#userSign").html(data.value.user.userSign);
+                        $("#nativePlace").html(data.value.user.nativePlace);
+                        $("#userCareer").html(data.value.user.userCareer);
+                        $("#imgShow").attr("src", data.value.user.userPhoto);//渲染用户头像
+                        $("#addNum").html(data.value.user.addNum);
+                        $("#addedNum").html(data.value.user.addedNum);
+                        var cookBookList = data.value.cookBookList;
+                        for (var i = 0; i < cookBookList.length; i++) {
                             $("#cooks").append(' <div class="col-sm-6 col-md-4">'
                                     + '<div class="thumbnail">'
-                                    + '<a href="cookbookDetail.html?cookbookId=' + data.cooks[i].cookbookId + '"><img id="food-img" src=' + data.cooks[i].cookImg + ' alt="..."/></a>'
+                                    + '<a href="cookbookDetail.html?cookbookId=' + cookBookList.cookbookId + '"><img id="food-img" src=' + cookBookList.cookImage + ' alt="..."/></a>'
                                     + '<div class="caption row">'
-                                    + '<div class="col-md-6" id="food-name">' + data.cooks[i].cookbookName + '</div>'
+                                    + '<div class="col-md-6" id="food-name">' + cookBookList.cookbookName + '</div>'
                                     + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
                                     + '</div>'
-                                    + '<p id="food-description">' + data.cooks[i].cookbookDesc + '</p>'
+                                    + '<p id="food-description">' + cookBookList.cookbookDesc + '</p>'
                                     + '</div>'
                                     + '</div>'
                                     + '</div>')
@@ -92,7 +93,6 @@
             });
 
             $("input[type=file]").change(function (event) {
-                console.log("is change?");
                 var formData = new FormData($("#frmUploadFile")[0]);
                 $.ajax({
                     url: 'http://localhost:8088/user/uploadPhoto',

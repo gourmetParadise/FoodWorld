@@ -83,7 +83,6 @@ $(function () {
 
   //更新信息
   $("#updateBtn").click(function () {
-    var userNickName = sessionStorage.getItem("username");
     var userSex = $("input[name='gender']:checked").val();
     var userSign = $("textarea[name='desc']").val();
     var birthDate = $("#year").val() + "-" + $("#month").val() + "-" + $("#day").val();
@@ -95,7 +94,6 @@ $(function () {
       type: 'POST',
       url: 'http://localhost:8088/user/update',
       data: JSON.stringify({
-        userNickName: userNickName,
         userSex: userSex,
         userSign: userSign,
         birthDate: birthDate,
@@ -106,7 +104,7 @@ $(function () {
       dataType: 'json',
       success: function (data) {
         if(data.status === 10000){
-          console.log("更新成功");
+          console.log(data.value);
         }
       },
       error: function(err){
