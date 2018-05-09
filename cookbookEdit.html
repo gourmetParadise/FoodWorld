@@ -9,8 +9,24 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            var user = sessionStorage.getItem("user");
             var cookbookId = location.search.split('=')[1];
             var updateMaterials = [];
+            //导航 上传与我的主页
+            $("#uploadLink").click(function () {
+                if(user != null){
+                    window.location.href = "uploadbook.html";
+                }else{
+                    window.location.href = "login.html";
+                }
+            });
+            $("#userLink").click(function () {
+                if(user != null){
+                    window.location.href = "person.html?username=" + user;
+                }else{
+                    window.location.href = "login.html";
+                }
+            });
             $("input[type='hidden']").val(cookbookId);
             /*用料表格---*/
             clearText();
@@ -145,8 +161,8 @@
             <ul id="main-menu">
                 <li class="settings-txt"><a>首页</a></li>
                 <li class="settings-txt"><a href="cookCommunity.html">新秀菜谱</a></li>
-                <li class="settings-txt"><a>上传菜谱</a></li>
-                <li class="settings-txt"><a>我的主页</a></li>
+                <li id="uploadLink" class="settings-txt"><a>上传菜谱</a></li>
+                <li id="userLink" class="settings-txt"><a>我的主页</a></li>
                 <li class="settings-txt"><a href="login.html">登录|注册</a></li>
             </ul>
         </div>

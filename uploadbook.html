@@ -12,6 +12,22 @@
             var user = sessionStorage.getItem("user");
             var materials = [];
             var cookTempId = "";
+
+            //导航 上传与我的主页
+            $("#uploadLink").click(function () {
+                if(user != null){
+                    window.location.href = "uploadbook.html";
+                }else{
+                    window.location.href = "login.html";
+                }
+            });
+            $("#userLink").click(function () {
+                if(user != null){
+                    window.location.href = "person.html?username=" + user;
+                }else{
+                    window.location.href = "login.html";
+                }
+            });
             /*用料表格---*/
             clearText();
             $("#addBtn").click(function () {
@@ -121,8 +137,8 @@
             <ul id="main-menu">
                 <li class="settings-txt"><a>首页</a></li>
                 <li class="settings-txt"><a href="cookCommunity.html">新秀菜谱</a></li>
-                <li class="settings-txt"><a>上传菜谱</a></li>
-                <li class="settings-txt"><a>我的主页</a></li>
+                <li id="uploadLink" class="settings-txt"><a>上传菜谱</a></li>
+                <li id="userLink" class="settings-txt"><a>我的主页</a></li>
                 <li class="settings-txt"><a href="login.html">登录|注册</a></li>
             </ul>
         </div>

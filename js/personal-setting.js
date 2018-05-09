@@ -80,6 +80,21 @@ function createOptions(cs) {
 $(function () {
   initProvinceCity($("#p1"), $("#c1"));
   var user = sessionStorage.getItem("user");
+  //导航 上传与我的主页
+  $("#uploadLink").click(function () {
+    if(user != null){
+      window.location.href = "uploadbook.html";
+    }else{
+      window.location.href = "login.html";
+    }
+  });
+  $("#userLink").click(function () {
+    if(user != null){
+      window.location.href = "person.html?username=" + user;
+    }else{
+      window.location.href = "login.html";
+    }
+  });
   //更新信息
   $("#updateBtn").click(function () {
     var userSex = $("input[name='gender']:checked").val();
