@@ -102,8 +102,10 @@
                         //比較user及username,決定編輯刪除
                         if (user === data.value.userName) {
                             $('#operation').show();
+                            $(".user-hide").hide();
                         } else {
                             $('#operation').hide();
+                            $(".user-hide").show();
                         }
                     }
                 },
@@ -220,7 +222,7 @@
     <div>
         <img id="cookImg" style="width: 712px;height: 439px" class="img-responsive"/>
     </div>
-    <div class="row">
+    <div class="row user-hide">
         <div class="col-md-3 col-md-offset-7 collect">
             <a id="btn_add" href="javascript:void(0)" class="button large-button collect-button">收藏</a>
         </div>

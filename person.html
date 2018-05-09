@@ -33,7 +33,10 @@
             if (user === username) {
                 $('#self-follow').show();
                 $('#other-follow').hide();
+                $(".other-hide").show();
             } else {
+                //隐藏 个人设置和上传菜谱
+                $(".other-hide").hide();
                 $('#other-follow').show();
                 $('#self-follow').hide();
             }
@@ -147,7 +150,7 @@
                 });
             });
             //关注列表
-            $("#addNum").click(function () {
+            $("#follow").click(function () {
                 $.ajax({
                     url: 'http://localhost:8088/usership/' + user + '/addshiplist',
                     type: 'GET',
@@ -182,7 +185,7 @@
                 })
             });
             //粉丝(被关注)列表
-            $("#addedNum").click(function () {
+            $("#followed").click(function () {
                 $.ajax({
                     url: 'http://localhost:8088/usership/' + user + '/addedshiplist',
                     type: 'GET',
@@ -315,7 +318,7 @@
             </ul>
         </div>
         <div class="col-md-3 user-info-right">
-            <div>
+            <div class="other-hide">
                 <a href="personal-setting.html" class="font16">设置个人信息</a>
             </div>
             <div id="self-follow" style="display: none">
@@ -327,7 +330,9 @@
             <div id="other-follow" style="display: none">
                 <button id="btnFollow" class="bold font16">关注</button>
             </div>
-            <a href="uploadbook.html" class="font16">上传菜谱</a>
+            <div class="other-hide">
+                <a href="uploadbook.html" class="font16">上传菜谱</a>
+            </div>
         </div>
     </div>
     <!--菜谱等展示-->
@@ -343,7 +348,10 @@
                 <a href="#collects" data-toggle="tab" class="collects">收藏</a>
             </li>
             <li>
-                <a href="#follows" data-toggle="tab" class="collects">厨友</a>
+                <a href="#follow" data-toggle="tab" class="collects">关注</a>
+            </li>
+            <li>
+                <a href="#followed" data-toggle="tab" class="collects">粉丝</a>
             </li>
         </ul>
 
@@ -357,7 +365,14 @@
             <div class="tab-pane fade" id="collects">
 
             </div>
-            <div class="tab-pane fade" id="follows">
+            <div class="tab-pane fade" id="follow">
+                <div class="block p40 white-bg">
+                    <ul class="plain people-follow-list">
+
+                    </ul>
+                </div>
+            </div>
+            <div class="tab-pane fade" id="followed">
                 <div class="block p40 white-bg">
                     <ul class="plain people-follow-list">
 
