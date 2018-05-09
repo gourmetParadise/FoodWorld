@@ -42,7 +42,6 @@
             }
 
             /*用料表格---*/
-
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8088/cookbook/' + cookbookId + '/info',
@@ -52,7 +51,7 @@
                         $("#cookbookName").val(data.value.cookbookName);
                         $("#imgShow").attr("src", data.value.cookImage);
                         $("#cookbookDesc").val(data.value.cookbookDesc);
-                        updateMaterials = JSON.parse(data.value.materials);
+                        updateMaterials = data.value.materials;
                         for (var i = 0; i < data.value.materials.length; i++) {
                             var source = data.value.materials[i].source;
                             var amount = data.value.materials[i].amount;
@@ -71,7 +70,7 @@
             //更新图片
             $("input[type='file']").change(function (event) {
                 var formData = new FormData();
-                formDate.append("file", $("#frmUploadFile")[0]);
+                formData.append("file", $("#frmUploadFile")[0]);
                 formData.append('cookbookId', cookbookId);
                 $.ajax({
                     url: 'http://localhost:8088/cookbook/updateImage',
