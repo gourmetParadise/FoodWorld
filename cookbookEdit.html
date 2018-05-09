@@ -68,9 +68,9 @@
                         $("#imgShow").attr("src", data.value.cookImage);
                         $("#cookbookDesc").val(data.value.cookbookDesc);
                         updateMaterials = data.value.ingreList;
-                        for (var i = 0; i < data.value.materials.length; i++) {
-                            var source = data.value.materials[i].source;
-                            var amount = data.value.materials[i].amount;
+                        for (var i = 0; i < data.value.ingreList.length; i++) {
+                            var source = data.value.ingreList[i].source;
+                            var amount = data.value.ingreList[i].amount;
                             $("#table1").append($("<tr>").append($("<td>").append(source))
                                     .append($("<td>").append(amount))
                                     .append($("<td>").append("<input class='delBtn' type='button' value='删除' />")));
