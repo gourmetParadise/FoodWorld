@@ -78,12 +78,24 @@
                 event.preventDefault();   //阻止默认事件
                 $.ajax({
                     type: 'GET',
-                    url: 'http://localhost:8088/user/' + username + '/userCollects',
+                    url: 'http://localhost:8088/collect/' + username + '/list',
                     dataType: 'json',
                     success: function (data) {
                         if (data.status === 10000) {
-                            //插入数据
-
+                            var cookCollectList = data.value;
+                            for (var i = 0; i < cookCollectList.length; i++) {
+                                $("#collects").append(' <div class="col-sm-6 col-md-4">'
+                                        + '<div class="thumbnail">'
+                                        + '<a href="cookbookDetail.html?cookbookId=' + cookCollectList.cookbookId + '"><img id="food-img" src=' + cookCollectList.cookImage + ' alt="..."/></a>'
+                                        + '<div class="caption row">'
+                                        + '<div class="col-md-6" id="food-name">' + cookCollectList.cookbookName + '</div>'
+                                        + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
+                                        + '</div>'
+                                        + '<p id="food-description">' + cookCollectList.collectReason + '</p>'
+                                        + '</div>'
+                                        + '</div>'
+                                        + '</div>')
+                            }
                         }
                     },
                     error: function (err) {
@@ -126,12 +138,24 @@
                     dataType: "json",
                     success: function (data) {
                         if (data.status == 10000) {
-                            console.log(data.value);
-                            //Todo
                             for(var i=0;i<data.value.length;i++){
-                                $(".people-follow-list").append()
-                            }
+                                $(".people-follow-list").append('<li class="mb30">'
+                                        + '<div class="pure-g">'
+                                        + '<div class="pure-u-1-3">'
+                                        + '<a href=href="person.html?username=' + data.value[i].friendName + '">'
+                                        + '<img src=' + data.value[i].friendPhoto + ' alt="" width="60" height="60">'
+                                        + '</a>'
+                                        + '</div>'
+                                        + '<div class="pure-u-2-3 gray-font font12">'
+                                        + '<div>'
+                                        + '<a href="/cook/100351317/" class="font14">'+ data.value[i].friendName +'</a>'
+                                        + '</div>'
 
+                                        + '<div>'+ data.value[i].cookCount +'</div>'
+                                        + '</div>'
+                                        + '</div>'
+                                        + '</li>')
+                            }
                         } else {
 
                         }
@@ -149,8 +173,25 @@
                     dataType: "json",
                     success: function (data) {
                         if (data.status == 10000) {
-                            console.log(data.value);
-                            //Todo
+                            for(var i=0;i<data.value.length;i++){
+                                $(".people-follow-list").append('<li class="mb30">'
+                                        + '<div class="pure-g">'
+                                        + '<div class="pure-u-1-3">'
+                                        + '<a href=href="person.html?username=' + data.value[i].friendName + '">'
+                                        + '<img src=' + data.value[i].friendPhoto + ' alt="" width="60" height="60">'
+                                        + '</a>'
+                                        + '</div>'
+                                        + '<div class="pure-u-2-3 gray-font font12">'
+                                        + '<div>'
+                                        + '<a href="/cook/100351317/" class="font14">'+ data.value[i].friendName +'</a>'
+                                        + '</div>'
+
+                                        + '<div>'+ data.value[i].cookCount +'</div>'
+                                        + '</div>'
+                                        + '</div>'
+                                        + '</li>')
+                            }
+
                         } else {
 
                         }
@@ -306,20 +347,17 @@
                         <li class="mb30">
                             <div class="pure-g">
                                 <div class="pure-u-1-3">
-                                    <a href="/cook/100351317/">
-                                        <img src="http://s1.cdn.xiachufang.com/969d9952b18045cd8696dc88bf7cf96e_801w_796h.png@2o_50sh_1pr_1l_60w_60h_1c_1e_90q_1wh"
-                                             alt="小美的美食" width="60" height="60">
+                                    <a href="">
+                                        <img src=""
+                                             alt="" width="60" height="60">
                                     </a>
                                 </div>
                                 <div class="pure-u-2-3 gray-font font12">
-
                                     <div>
                                         <a href="/cook/100351317/" class="font14">小美的美食</a>
                                     </div>
 
-                                    <div>1个月前</div>
-
-
+                                    <div>已发12菜谱</div>
                                 </div>
                             </div>
                         </li>

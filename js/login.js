@@ -20,6 +20,19 @@ $(function(){
 });
 
 $(document).ready(function() {
+  $("#user").blur(function () {
+    var username = $("#user").val().trim();
+    $.ajax({
+      type: 'get',
+      url: 'http://localhost:8088/user/'+ username +'/judge',
+      dataType: 'json',
+      success: function (data) {
+        if(data.status === 10001){
+          $("#userCue").html("用户名不存在");
+        }
+      }
+    })
+  });
   $('#reg').click(function() {
     var nickName = $("#user").val().trim();
     var password = $("#passwd").val().trim();
@@ -55,29 +68,32 @@ $(document).ready(function() {
       $('#userCue').html("<font color='red'><b>邮箱格式有误</b></font>");
       return false;
     }
-    /*注册请求*/
-    $.ajax({
-      type: "POST",
-      url: "http://localhost:8088/user/register",
-      contentType: 'application/json',
-      data: JSON.stringify({
-        nickName: nickName,
-        password: password,
-        email: email
-      }),
-      dataType: 'json',
-      success: function(result) {
-        if(result.status === 10000){
-          $("#userCue").html(result.value);
+    if($("#userCue").text() === ""){
+      $.ajax({
+        type: "POST",
+        url: "http://localhost:8088/user/register",
+        contentType: 'application/json',
+        data: JSON.stringify({
+          nickName: nickName,
+          password: password,
+          email: email
+        }),
+        dataType: 'json',
+        success: function(result) {
+          if(result.status === 10000){
+            $("#userCue").html(result.value);
+            $('#regUser').submit();
+          }
+        },
+        error:function(e){
+          console.log(e.message);
         }
-      },
-      error:function(e){
-        console.log(e.message);
-      }
-    });
-
-    $('#regUser').submit();
+      });
+    }else{
+      $("#userCue").text("信息有误请修改后提交");
+    }
   });
+
   $('#log').click(function() {
     var nickName = $("#u").val().trim();
     var password = $("#p").val().trim();
