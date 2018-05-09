@@ -105,7 +105,7 @@ $(function () {
       success: function (data) {
         if(data.status === 10000){
           console.log(data.value);
-          window.location.href = "person.html/" + user;
+          window.location.href = "person.html?username=" + user;
         }
       },
       error: function(err){
