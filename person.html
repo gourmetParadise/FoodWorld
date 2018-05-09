@@ -14,10 +14,10 @@
             var user = sessionStorage.getItem("user");
             var username = location.search.split('=')[1];
             /*比较user与username,决定关注页面显示*/
-            if(user === username){
+            if (user === username) {
                 $('#self-follow').show();
                 $('#other-follow').hide();
-            }else{
+            } else {
                 $('#other-follow').show();
                 $('#self-follow').hide();
             }
@@ -39,7 +39,7 @@
                         for (var i = 0; i < data.cooks.length; i++) {
                             $("#cooks").append(' <div class="col-sm-6 col-md-4">'
                                     + '<div class="thumbnail">'
-                                    + '<a href="cookbookDetail.html?cookbookId=' + data.cooks[i].cookbookId+ '"><img id="food-img" src=' + data.cooks[i].cookImg + ' alt="..."/></a>'
+                                    + '<a href="cookbookDetail.html?cookbookId=' + data.cooks[i].cookbookId + '"><img id="food-img" src=' + data.cooks[i].cookImg + ' alt="..."/></a>'
                                     + '<div class="caption row">'
                                     + '<div class="col-md-6" id="food-name">' + data.cooks[i].cookbookName + '</div>'
                                     + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
@@ -118,16 +118,120 @@
                     }
                 });
             });
+            //关注列表
+            $("#addNum").click(function () {
+                $.ajax({
+                    url: 'http://localhost:8088/usership/' + user + '/addshiplist',
+                    type: 'GET',
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 10000) {
+                            console.log(data.value);
+                            //插入数据
 
+                        } else {
+
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err.message);
+                    }
+                })
+            });
+            //被关注列表
+            $("#addedNum").click(function () {
+                $.ajax({
+                    url: 'http://localhost:8088/usership/' + user + '/addedshiplist',
+                    type: 'GET',
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 10000) {
+                            console.log(data.value);
+                            //插入数据
+
+                        } else {
+
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err.message);
+                    }
+                })
+            });
             //关注
+            $("#btnFollow").click(function () {
+                if ($(this).text() === '关注') {
+                    $(this).text("已关注");
+                    $.ajax({
+                        url: 'http://localhost:8088/usership/addship',
+                        type: 'post',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({
+                            selfName: user,
+                            friendName: username,
+                            shipType: 1
+                        }),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.status == 10000) {
+                                console.log(data.value);
+                            } else {
 
-            //取消关注
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err.message);
+                        }
+                    })
+                } else {
+                    //取消关注
+                    $.ajax({
+                        url: 'http://localhost:8088/usership/deleteship',
+                        type: 'post',
+                        contentType: "application/json;charset=utf-8",
+                        data: JSON.stringify({
+                            selfName: user,
+                            friendName: username
+                        }),
+                        dataType: "json",
+                        success: function (data) {
+                            if (data.status == 10000) {
+                                //取消关注样式
+                                $(this).text("关注");
+                                console.log(data.value);
+                            } else {
+
+                            }
+                        },
+                        error: function (err) {
+                            console.log(err.message);
+                        }
+                    })
+                }
+            });
+
         });
 
     </script>
 </head>
 <body>
 <div class="food-body user-info">
+    <div id="header" class="grid-clear ">
+        <div class="grid" id="logo">
+            <a href=" " class="settings-text">
+                Cook In My Life
+            </a>
+        </div>
+        <div class="grid main-menu-block">
+            <ul id="main-menu">
+                <li class="settings-txt"><a>首页</a></li>
+                <li class="settings-txt"><a href="cookCommunity.html">新秀菜谱</a></li>
+                <li class="settings-txt"><a>上传菜谱</a></li>
+                <li class="settings-txt"><a>我的主页</a></li>
+                <li class="settings-txt"><a href="login.html">登录|注册</a></li>
+            </ul>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-3 avatar">
             <div>
@@ -155,15 +259,14 @@
             <div>
                 <a href="personal-setting.html" class="font16">设置个人信息</a>
             </div>
-            <div id="self-follow">
+            <div id="self-follow" style="display: none">
                 关注
                 <button id="addNum" class="bold font16"></button>
-
-                被关注
+                粉丝
                 <button id="addedNum" class="bold font16"></button>
             </div>
-            <div id="other-follow">
-                <button id="addFollow" class="bold font16">关注</button>
+            <div id="other-follow" style="display: none">
+                <button id="btnFollow" class="bold font16">关注</button>
             </div>
             <a href="uploadbook.html" class="font16">上传菜谱</a>
         </div>
@@ -180,6 +283,9 @@
             <li>
                 <a href="#collects" data-toggle="tab" class="collects">收藏</a>
             </li>
+            <li>
+                <a href="#follows" data-toggle="tab" class="collects">厨友</a>
+            </li>
         </ul>
 
         <div id="profileTabContent" class="tab-content">
@@ -192,7 +298,13 @@
             <div class="tab-pane fade" id="collects">
 
             </div>
+            <div class="tab-pane fade" id="follows">
+
+            </div>
         </div>
+    </div>
+    <div id="footer">
+        <div class="copyright">Copyright © 2018 美食家乐园网&nbsp;All Rights Reserved.</div>
     </div>
 </div>
 </body>

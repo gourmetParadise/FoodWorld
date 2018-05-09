@@ -57,6 +57,7 @@
         $(function () {
             var user = sessionStorage.getItem("user");
             var cookbookId = location.search.split('=')[1];
+
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8088/cookbook/' + cookbookId + '/info',
@@ -81,6 +82,12 @@
                         //模态框菜谱名称和图片
                         $("#myModalLabel").html(data.value.cookbookName);
                         $("#cookCollectedImg").attr("src", data.value.cookImg);
+                        //比較user及username,決定編輯刪除
+                        if (user === data.value.username) {
+                            $('#operation').show();
+                        } else {
+                            $('#operation').hide();
+                        }
                     }
                 },
                 error: function (err) {
@@ -169,11 +176,27 @@
 </head>
 <body>
 <div class="food-body">
+    <div id="header" class="grid-clear ">
+        <div class="grid" id="logo">
+            <a href=" " class="settings-text">
+                Cook In My Life
+            </a>
+        </div>
+        <div class="grid main-menu-block">
+            <ul id="main-menu">
+                <li class="settings-txt"><a>首页</a></li>
+                <li class="settings-txt"><a href="cookCommunity.html">新秀菜谱</a></li>
+                <li class="settings-txt"><a>上传菜谱</a></li>
+                <li class="settings-txt"><a>我的主页</a></li>
+                <li class="settings-txt"><a href="login.html">登录|注册</a></li>
+            </ul>
+        </div>
+    </div>
     <div class="row">
         <div class="col-md-4">
             <h1 class="page-title"></h1>
         </div>
-        <div class="col-md-4 col-md-offset-7 font12">
+        <div id="operation" class="col-md-4 col-md-offset-7 font12" style="display: none">
             <a id="editCook">编辑</a>
             <a id="deleteCook">删除</a>
         </div>
@@ -227,14 +250,17 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span
-                            class="glyphicon glyphicon-remove" aria-hidden="true"></span>关闭
+                             ></span>关闭
                     </button>
                     <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span
-                            class="glyphicon glyphicon-floppy-disk" aria-hidden="true"></span>保存
+                             ></span>保存
                     </button>
                 </div>
             </div>
         </div>
+    </div>
+    <div id="footer">
+        <div class="copyright">Copyright © 2018 美食家乐园网&nbsp;All Rights Reserved.</div>
     </div>
 </div>
 </body>

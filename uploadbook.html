@@ -110,52 +110,70 @@
     </script>
 </head>
 <body>
-<div class="container">
-    <div class="food-body">
-        <h2>菜名
-            <input type="text" id="cookbookName"/>
-        </h2>
+<div class="food-body">
+    <div id="header" class="grid-clear ">
+        <div class="grid" id="logo">
+            <a href=" " class="settings-text">
+                Cook In My Life
+            </a>
+        </div>
+        <div class="grid main-menu-block">
+            <ul id="main-menu">
+                <li class="settings-txt"><a>首页</a></li>
+                <li class="settings-txt"><a href="cookCommunity.html">新秀菜谱</a></li>
+                <li class="settings-txt"><a>上传菜谱</a></li>
+                <li class="settings-txt"><a>我的主页</a></li>
+                <li class="settings-txt"><a href="login.html">登录|注册</a></li>
+            </ul>
+        </div>
+    </div>
+    <h2>菜名
+        <input type="text" id="cookbookName"/>
+    </h2>
+    <div>
         <div>
-            <div>
-                <img id="imgShow" style="height: 400px;width: 600px;"/>
-            </div>
-            <form class="form-horizontal" enctype='multipart/form-data' action='javascript:;' id="frmUploadFile">
-                <input type="file" name="files"/>
-                <span class="help-inline" id="spanMessage"> </span>
-            </form>
+            <img id="imgShow" style="height: 400px;width: 600px;"/>
         </div>
-        <div style="margin:30px auto 50px ">
-            <textarea id="cookbookDesc" class="form-control" rows="2" placeholder="点击添加菜谱描述" style="overflow: auto"></textarea>
-        </div>
-        <h2 class="text-left">用料</h2>
-        <table>
-            <tr>
-                <td>用料：<input type="text" id="source" value="" placeholder="食材 : 如鸡蛋"/></td>
-                <td>数量： <input type="text" id="amount" value="" placeholder="用量 : 如一个"/></td>
-                <td><input type="button" id="addBtn" value="添加"></td>
-            </tr>
-        </table>
-        <table id="table1" class="table table-bordered ">
-            <tr>
-                <th class="text-center">用料</th>
-                <th class="text-center">数量</th>
-                <th class="text-center">操作</th>
-            </tr>
-        </table>
+        <form class="form-horizontal" enctype='multipart/form-data' action='javascript:;' id="frmUploadFile">
+            <input type="file" name="files"/>
+            <span class="help-inline" id="spanMessage"> </span>
+        </form>
+    </div>
+    <div style="margin:30px auto 50px ">
+        <textarea id="cookbookDesc" class="form-control" rows="2" placeholder="点击添加菜谱描述"
+                  style="overflow: auto"></textarea>
+    </div>
+    <h2 class="text-left">用料</h2>
+    <table>
+        <tr>
+            <td>用料：<input type="text" id="source" value="" placeholder="食材 : 如鸡蛋"/></td>
+            <td>数量： <input type="text" id="amount" value="" placeholder="用量 : 如一个"/></td>
+            <td><input type="button" id="addBtn" value="添加"></td>
+        </tr>
+    </table>
+    <table id="table1" class="table table-bordered ">
+        <tr>
+            <th class="text-center">用料</th>
+            <th class="text-center">数量</th>
+            <th class="text-center">操作</th>
+        </tr>
+    </table>
 
-        <div>
-            <h2 class="text-left">做法</h2>
+    <div>
+        <h2 class="text-left">做法</h2>
         <textarea id="cookbookSteps" class="form-control" rows="5"
                   style="overflow: auto"
                   placeholder="为了您的菜谱能够更好的显示，您可以：1.XXX 回车 2.XXX 回车 3.xxx......"></textarea>
-        </div>
-        <div>
-            <h4 class="text-left"><b>小贴士</b></h4>
-            <textarea id="cookbookTips" class="form-control" rows="2" placeholder="添加小贴士" style="overflow: auto"></textarea>
-        </div>
-        <button id="uploadBookBtn" type="button" class="btn btn-info btn-lg" style="margin-top: 30px;">
-            上传菜谱
-        </button>
+    </div>
+    <div>
+        <h4 class="text-left"><b>小贴士</b></h4>
+        <textarea id="cookbookTips" class="form-control" rows="2" placeholder="添加小贴士" style="overflow: auto"></textarea>
+    </div>
+    <button id="uploadBookBtn" type="button" class="btn btn-info btn-lg" style="margin-top: 30px;">
+        上传菜谱
+    </button>
+    <div id="footer">
+        <div class="copyright">Copyright © 2018 美食家乐园网&nbsp;All Rights Reserved.</div>
     </div>
 </div>
 </body>
