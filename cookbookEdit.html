@@ -85,9 +85,9 @@
             });
             //更新图片
             $("input[type='file']").change(function (event) {
-                var formData = new FormData();
-                formData.append("file", $("#frmUploadFile")[0]);
-                formData.append('cookbookId', cookbookId);
+                var formData = new FormData($("#frmUploadFile"));
+
+
                 $.ajax({
                     url: 'http://localhost:8088/cookbook/updateImage',
                     type: 'post',
