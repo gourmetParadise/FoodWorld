@@ -17,16 +17,16 @@
 
             //导航 上传与我的主页
             $("#uploadLink").click(function () {
-                if(user != null){
+                if (user != null) {
                     window.location.href = "uploadbook.html";
-                }else{
+                } else {
                     window.location.href = "login.html";
                 }
             });
             $("#userLink").click(function () {
-                if(user != null){
+                if (user != null) {
                     window.location.href = "person.html?username=" + user;
-                }else{
+                } else {
                     window.location.href = "login.html";
                 }
             });

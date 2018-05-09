@@ -14,16 +14,16 @@
             var updateMaterials = [];
             //导航 上传与我的主页
             $("#uploadLink").click(function () {
-                if(user != null){
+                if (user != null) {
                     window.location.href = "uploadbook.html";
-                }else{
+                } else {
                     window.location.href = "login.html";
                 }
             });
             $("#userLink").click(function () {
-                if(user != null){
+                if (user != null) {
                     window.location.href = "person.html?username=" + user;
-                }else{
+                } else {
                     window.location.href = "login.html";
                 }
             });
@@ -87,7 +87,7 @@
             $("input[type='file']").change(function (event) {
                 var formData = new FormData($("#frmUploadFile")[0]);
                 $.ajax({
-                    url: 'http://localhost:8088/cookbook/'+cookbookId+'/updateImage',
+                    url: 'http://localhost:8088/cookbook/' + cookbookId + '/updateImage',
                     type: 'post',
                     async: false,
                     cache: false,
@@ -133,7 +133,7 @@
                     dataType: "json",
                     success: function (data) {
                         if (data.status == 10000) {
-                            console.log(data.value);//更新菜谱成功
+                            alert("更新菜谱成功");
                         } else {
 
                         }

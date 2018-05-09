@@ -8,48 +8,48 @@
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
-        $(function (){
+        $(function () {
             var user = sessionStorage.getItem("user");
-        //导航 上传与我的主页
-        $("#uploadLink").click(function () {
-            if (user != null) {
-                window.location.href = "uploadbook.html";
-            } else {
-                window.location.href = "login.html";
-            }
-        });
-        $("#userLink").click(function () {
-            if (user != null) {
-                window.location.href = "person.html?username=" + user;
-            } else {
-                window.location.href = "login.html";
-            }
-        });
-        $.ajax({
-            type: 'get',
-            url: 'http://localhost:8088/cookbook/community',
-            dataType: 'json',
-            success: function (data) {
-                if (data.status === 10000) {
-                    for (var i = 0; i < data.value.length; i++) {
-                        $("#cookCommunity").append(' <div class="col-sm-6 col-md-4">'
-                                + '<div class="thumbnail">'
-                                + '<a href="cookbookDetail.html?cookbookId=' + data.value[i].cookbookId + '"><img id="food-img" src=' + data.value[i].cookImage + ' alt="..."/></a>'
-                                + '<div class="caption row">'
-                                + '<div class="col-md-6" id="food-name">' + data.value[i].cookbookName + '</div>'
-                                + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
-                                + '</div>'
-                                + '<p id="food-description">' + data.value[i].cookbookDesc + '</p>'
-                                + '</div>'
-                                + '</div>'
-                                + '</div>')
-                    }
+            //导航 上传与我的主页
+            $("#uploadLink").click(function () {
+                if (user != null) {
+                    window.location.href = "uploadbook.html";
+                } else {
+                    window.location.href = "login.html";
                 }
-            },
-            error: function (err) {
-                console.log(err.message);
-            }
-        })
+            });
+            $("#userLink").click(function () {
+                if (user != null) {
+                    window.location.href = "person.html?username=" + user;
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:8088/cookbook/community',
+                dataType: 'json',
+                success: function (data) {
+                    if (data.status === 10000) {
+                        for (var i = 0; i < data.value.length; i++) {
+                            $("#cookCommunity").append(' <div class="col-sm-6 col-md-4">'
+                                    + '<div class="thumbnail">'
+                                    + '<a href="cookbookDetail.html?cookbookId=' + data.value[i].cookbookId + '"><img id="food-img" src=' + data.value[i].cookImage + ' alt="..."/></a>'
+                                    + '<div class="caption row">'
+                                    + '<div class="col-md-6" id="food-name">' + data.value[i].cookbookName + '</div>'
+                                    + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
+                                    + '</div>'
+                                    + '<p id="food-description">' + data.value[i].cookbookDesc + '</p>'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</div>')
+                        }
+                    }
+                },
+                error: function (err) {
+                    console.log(err.message);
+                }
+            })
         })
     </script>
 </head>
