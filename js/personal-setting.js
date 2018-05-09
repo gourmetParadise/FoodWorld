@@ -79,8 +79,7 @@ function createOptions(cs) {
 //初始化
 $(function () {
   initProvinceCity($("#p1"), $("#c1"));
-  //页面加载
-
+  var user = sessionStorage.getItem("user");
   //更新信息
   $("#updateBtn").click(function () {
     var userSex = $("input[name='gender']:checked").val();
@@ -94,6 +93,7 @@ $(function () {
       type: 'POST',
       url: 'http://localhost:8088/user/update',
       data: JSON.stringify({
+        userNickName: user,
         userSex: userSex,
         userSign: userSign,
         birthDate: birthDate,
