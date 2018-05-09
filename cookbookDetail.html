@@ -38,7 +38,7 @@
             font-size: 15px;
         }
 
-        .button, .button:hover {
+        .button{
             color: #fff;
             background-color: #dd3915;
         }
@@ -97,7 +97,7 @@
                         $("#moveToWork").attr("href", 'uploadwork.html?cookbookId=' + cookbookId);
                         $(".avatar").attr("href", 'person.html?username=' + data.value.userName);
                         //模态框菜谱名称和图片
-                        $("#myModalLabel").html(data.value.cookbookName);
+                        $("#myModalLabel").text(data.value.cookbookName);
                         $("#cookCollectedImg").attr("src", data.value.cookImage);
                         //比較user及username,決定編輯刪除
                         if (user === data.value.userName) {
@@ -144,8 +144,8 @@
                 if (!$("#btn_add").hasClass("changeColor") && $("#btn_add").text() === '收藏') {
                     $("#btn_add").text('已收藏');
                     $("#btn_add").addClass("changeColor");
-                    console.log($("#myModalLabel").val());
-                    console.log($("textarea[name='collectReason']").val());
+                    /*console.log($("#myModalLabel").text());
+                    console.log($("textarea[name='collectReason']").val());*/
                     //收藏菜谱
                     $.ajax({
                         url: 'http://localhost:8088/collect/add',
@@ -154,7 +154,7 @@
                         data: JSON.stringify({
                             userName: user,
                             cookbookId: cookbookId,
-                            cookbookName: $("#myModalLabel").val(),
+                            cookbookName: $("#myModalLabel").text(),
                             collectReason: $("textarea[name='collectReason']").val()
                         }),
                         dataType: "json",
@@ -245,7 +245,7 @@
     <!--一个div展示菜谱的示例作品-->
     <div class="collect"><a id="moveToWork" class="collect-button button large-button w100">上传你的作品</a></div>
     <!--收藏模态框-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel">
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" >
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
