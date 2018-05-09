@@ -47,7 +47,7 @@
             $("input[type='file']").change(function (event) {
                 var formData = new FormData($("#frmUploadFile")[0]);
                 $.ajax({
-                    url: 'http://localhost:8088/cookbook/uploadImg',
+                    url: 'http://localhost:8088/cookbook/uploadImage',
                     type: 'POST',
                     data: formData,
                     async: false,
@@ -57,7 +57,7 @@
                     success: function (data) {
                         if (10000 === data.status) {
                             event.target.value = "";//防止二次上传无效
-                            $("#imgShow").attr('src', data.value.filepath);
+                            $("#imgShow").attr('src', data.value.cookImage);
                             cookTempId = data.value.cookbookId;
                             $("#spanMessage").html("上传成功");
                         } else {
@@ -82,8 +82,8 @@
                     type: "POST",
                     contentType: "application/json;charset=utf-8",
                     data: JSON.stringify({
-                        user: user,
-                        cookTempId: cookTempId,
+                        userName: user,
+                        cookbookId: cookTempId,
                         cookbookName: cookbookName,
                         cookbookDesc: cookbookDesc,
                         materials: materials,

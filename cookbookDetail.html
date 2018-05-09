@@ -65,9 +65,9 @@
                 success: function (data) {
                     if (data.status === 10000) {
                         $("h1").html(data.value.cookbookName);
-                        $("#cookImg").attr("src", data.value.cookImg);
+                        $("#cookImg").attr("src", data.value.cookImage);
                         $("#userPhoto").attr("src", data.value.userPhoto);
-                        $("#username").html(data.value.username);
+                        $("#username").html(data.value.userName);
                         $("#cookbookDesc").html(data.value.cookbookDesc);
                         for (var i = 0; i < data.value.materials.length; i++) {
                             var source = data.value.materials[i].source;
@@ -78,12 +78,12 @@
                         $("#cookbookSteps").html(data.value.cookbookSteps);
                         $("#cookbookTips").html(data.value.cookbookTips);
                         $("#moveToWork").attr("href", 'uploadwork.html?cookbookId=' + cookbookId);
-                        $(".avatar").attr("href", 'person.html?username=' + data.value.username);
+                        $(".avatar").attr("href", 'person.html?username=' + data.value.userName);
                         //模态框菜谱名称和图片
                         $("#myModalLabel").html(data.value.cookbookName);
-                        $("#cookCollectedImg").attr("src", data.value.cookImg);
+                        $("#cookCollectedImg").attr("src", data.value.cookImage);
                         //比較user及username,決定編輯刪除
-                        if (user === data.value.username) {
+                        if (user === data.value.userName) {
                             $('#operation').show();
                         } else {
                             $('#operation').hide();
@@ -103,7 +103,7 @@
                     //删除请求，请求成功跳到个人主页
                     $.ajax({
                         url: 'http://localhost:8088/cookbook/' + cookbookId + '/' + user + '/delete',
-                        type: 'post',
+                        type: 'get',
                         success: function (data) {
                             if (data.status === 10000) {
                                 console.log(data.value);
@@ -123,7 +123,7 @@
                     $("#myModal").modal();
                 }
             });
-            //触发保存按钮
+            //触发保存,收藏按钮
             $("#btn_submit").click(function () {
                 if (!$("#btn_add").hasClass("changeColor") && $("#btn_add").text() === '收藏') {
                     $("#btn_add").text('已收藏');
@@ -132,7 +132,7 @@
                     console.log($("textarea[name='collectReason']").val());
                     //收藏菜谱
                     $.ajax({
-                        url: 'http://localhost:8088/cookcollect/add',
+                        url: 'http://localhost:8088/collect/add',
                         type: 'post',
                         contentType: "application/json;charset=utf-8",
                         data: JSON.stringify({
@@ -156,8 +156,8 @@
                 } else {
                     //取消收藏菜谱
                     $.ajax({
-                        url: 'http://localhost:8088/cookcollect/' + cookbookId + '/' + user + '/delete',
-                        type: 'post',
+                        url: 'http://localhost:8088/collect/' + cookbookId + '/' + user + '/delete',
+                        type: 'get',
                         success: function (data) {
                             if (data.status === 10000) {
                                 console.log(data.value);
