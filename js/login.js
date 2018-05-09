@@ -28,7 +28,7 @@ $(document).ready(function() {
       dataType: 'json',
       success: function (data) {
         if(data.status === 10001){
-          $("#userCue").html("用户名不存在");
+          $("#userCue").html("<font color='red'><b>用户名已存在</b></font>");
         }
       }
     })
@@ -37,9 +37,6 @@ $(document).ready(function() {
     var nickName = $("#user").val().trim();
     var password = $("#passwd").val().trim();
     var email = $("#user_email").val().trim();
-    /*console.log("nickName: " + nickName);
-    console.log("password: " + password);
-    console.log("email: " + email);*/
 
     if (nickName == "") {
       $('#user').focus().css({
@@ -90,7 +87,7 @@ $(document).ready(function() {
         }
       });
     }else{
-      $("#userCue").text("信息有误请修改后提交");
+      alert("页面信息有误，请修改后提交");
     }
   });
 

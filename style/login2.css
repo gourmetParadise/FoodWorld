@@ -177,11 +177,9 @@ h1 sup{
     height: 55px;
 }
 .cue {
-    margin-top: 15px;
-    margin-bottom: 10px;border:1px solid #eee;border-radius:3px;
+    border:1px solid #eee;border-radius:3px;
 }
 .web_login input.inputstyle2:focus, .web_login input.inputstyle:focus {
-    border: 1px solid #5796f;
     box-shadow: 0 0 0;
 }
 .web_login .reg_form {
