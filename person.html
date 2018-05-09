@@ -40,12 +40,12 @@
                         for (var i = 0; i < cookBookList.length; i++) {
                             $("#cooks").append(' <div class="col-sm-6 col-md-4">'
                                     + '<div class="thumbnail">'
-                                    + '<a href="cookbookDetail.html?cookbookId=' + cookBookList.cookbookId + '"><img id="food-img" src=' + cookBookList.cookImage + ' alt="..."/></a>'
+                                    + '<a href="cookbookDetail.html?cookbookId=' + cookBookList[i].cookbookId + '"><img id="food-img" src=' + cookBookList[i].cookImage + ' alt="..."/></a>'
                                     + '<div class="caption row">'
-                                    + '<div class="col-md-6" id="food-name">' + cookBookList.cookbookName + '</div>'
+                                    + '<div class="col-md-6" id="food-name">' + cookBookList[i].cookbookName + '</div>'
                                     + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
                                     + '</div>'
-                                    + '<p id="food-description">' + cookBookList.cookbookDesc + '</p>'
+                                    + '<p id="food-description">' + cookBookList[i].cookbookDesc + '</p>'
                                     + '</div>'
                                     + '</div>'
                                     + '</div>')
