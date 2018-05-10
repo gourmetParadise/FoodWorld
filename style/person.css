@@ -51,6 +51,11 @@ button {
     height: 70px;
     display: inline-block;
 }
+.people-followed-list li{
+    width: 250px;
+    height: 70px;
+    display: inline-block;
+}
 
 .mb30 {
     margin-bottom: 30px !important;
