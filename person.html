@@ -196,7 +196,6 @@
                                         + '<div>'
                                         + '<a href="#" class="font14">' + data.value[i].friendName + '</a>'
                                         + '</div>'
-
                                         + '<div>"已上传'+ data.value[i].cookCount + '道菜"</div>'
                                         + '</div>'
                                         + '</div>'
@@ -233,7 +232,6 @@
                                         + '<div>'
                                         + '<a href="#" class="font14">' + data.value[i].friendName + '</a>'
                                         + '</div>'
-
                                         + '<div>"已上传'+ data.value[i].cookCount + '道菜"</div>'
                                         + '</div>'
                                         + '</div>'
@@ -289,7 +287,7 @@
                         success: function (data) {
                             if (data.status == 10000) {
                                 //取消关注样式
-                                $(this).text("关注");
+                                $("#btnFollow").text("关注");
                                 console.log(data.value);
                             } else {
 
