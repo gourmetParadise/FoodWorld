@@ -157,43 +157,14 @@
 
             //收藏
             $("#btn_add").click(function () {
-                if ($(this).text() === '收藏') {
-                    $("#myModal").modal();
-                }
-            });
-            //触发保存,收藏按钮
-            $("#btn_submit").click(function () {
-                console.log("按钮为：" + $("#btn_add").text());
                 console.log($("#btn_add").hasClass("changeColor"));
+                console.log($("#btn_add").text());
+
                 if (!$("#btn_add").hasClass("changeColor") && $("#btn_add").text() === '收藏') {
+                    $("#myModal").modal();
                     $("#btn_add").text('已收藏');
                     $("#btn_add").addClass("changeColor");
-                    /*console.log($("#myModalLabel").text());
-                     console.log($("textarea[name='collectReason']").val());*/
-                    //收藏菜谱
-                    $.ajax({
-                        url: 'http://localhost:8088/collect/add',
-                        type: 'post',
-                        contentType: "application/json;charset=utf-8",
-                        data: JSON.stringify({
-                            userName: user,
-                            cookbookId: cookbookId,
-                            cookbookName: $("#myModalLabel").text(),
-                            collectReason: $("textarea[name='collectReason']").val()
-                        }),
-                        dataType: "json",
-                        success: function (data) {
-                            if (data.status == 10000) {
-                                console.log(data.value);
-                            } else {
-
-                            }
-                        },
-                        error: function (err) {
-                            console.log(err.message);
-                        }
-                    })
-                } else {
+                }else{
                     //取消收藏菜谱
                     $.ajax({
                         url: 'http://localhost:8088/collect/' + cookbookId + '/' + user + '/delete',
@@ -204,7 +175,7 @@
                                 $("#btn_add").text('收藏');
                                 $("#btn_add").removeClass("changeColor");
                             }
-                            if(data.status === 10001){
+                            if (data.status === 10001) {
                                 console.log(data.value);
                             }
                         },
@@ -213,7 +184,32 @@
                         }
                     });
                 }
-            })
+            });
+            //触发保存即收藏
+            $("#btn_submit").click(function () {
+                $.ajax({
+                    url: 'http://localhost:8088/collect/add',
+                    type: 'post',
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({
+                        userName: user,
+                        cookbookId: cookbookId,
+                        cookbookName: $("#myModalLabel").text(),
+                        collectReason: $("textarea[name='collectReason']").val()
+                    }),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 10000) {
+                            console.log(data.value);
+                        } else {
+
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err.message);
+                    }
+                });
+            });
         });
     </script>
 </head>
