@@ -196,7 +196,7 @@
                                         + '<div>'
                                         + '<a href="#" class="font14">' + data.value[i].friendName + '</a>'
                                         + '</div>'
-                                        + '<div>"已上传'+ data.value[i].cookCount + '道菜"</div>'
+                                        + '<div>"已上传' + data.value[i].cookCount + '道菜"</div>'
                                         + '</div>'
                                         + '</div>'
                                         + '</li>')
@@ -232,7 +232,7 @@
                                         + '<div>'
                                         + '<a href="#" class="font14">' + data.value[i].friendName + '</a>'
                                         + '</div>'
-                                        + '<div>"已上传'+ data.value[i].cookCount + '道菜"</div>'
+                                        + '<div>"已上传' + data.value[i].cookCount + '道菜"</div>'
                                         + '</div>'
                                         + '</div>'
                                         + '</li>')
@@ -285,13 +285,14 @@
                         }),
                         dataType: "json",
                         success: function (data) {
+                            console.log("取关数据" + data.value);
                             if (data.status == 10000) {
                                 //取消关注样式
                                 console.log("目前取消关注");
                                 $("#btnFollow").text("关注");
+                            }
+                            if(data.status == 10001){
                                 console.log(data.value);
-                            } else {
-
                             }
                         },
                         error: function (err) {

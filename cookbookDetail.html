@@ -163,6 +163,8 @@
             });
             //触发保存,收藏按钮
             $("#btn_submit").click(function () {
+                console.log("按钮为：" + $("#btn_add").text());
+                console.log($("#btn_add").hasClass("changeColor"));
                 if (!$("#btn_add").hasClass("changeColor") && $("#btn_add").text() === '收藏') {
                     $("#btn_add").text('已收藏');
                     $("#btn_add").addClass("changeColor");
@@ -201,6 +203,9 @@
                                 console.log(data.value);
                                 $("#btn_add").text('收藏');
                                 $("#btn_add").removeClass("changeColor");
+                            }
+                            if(data.status === 10001){
+                                console.log(data.value);
                             }
                         },
                         error: function (err) {
