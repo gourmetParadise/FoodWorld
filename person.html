@@ -174,7 +174,7 @@
                 });
             });
             //关注列表
-            $("#follow").click(function () {
+            $(".follow").click(function () {
                 $.ajax({
                     url: 'http://localhost:8088/usership/' + user + '/addshiplist',
                     type: 'GET',
@@ -209,7 +209,7 @@
                 })
             });
             //粉丝(被关注)列表
-            $("#followed").click(function () {
+            $(".followed").click(function () {
                 $.ajax({
                     url: 'http://localhost:8088/usership/' + user + '/addedshiplist',
                     type: 'GET',
