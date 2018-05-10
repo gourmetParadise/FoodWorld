@@ -38,7 +38,7 @@
             font-size: 15px;
         }
 
-        .button{
+        .button {
             color: #fff;
             background-color: #dd3915;
         }
@@ -61,19 +61,39 @@
 
             //导航 上传与我的主页
             $("#uploadLink").click(function () {
-                if(user != null){
+                if (user != null) {
                     window.location.href = "uploadbook.html";
-                }else{
+                } else {
                     window.location.href = "login.html";
                 }
             });
             $("#userLink").click(function () {
-                if(user != null){
+                if (user != null) {
                     window.location.href = "person.html?username=" + user;
-                }else{
+                } else {
                     window.location.href = "login.html";
                 }
             });
+            //判断收藏否
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8088/collect/' + cookbookId + '/' + user + '/iscollect',
+                dataType: 'json',
+                success: function (data) {
+                    if(data.status === 10000){
+                        if (!$("#btn_add").hasClass("changeColor") && $("#btn_add").text() === '收藏') {
+                            $("#btn_add").text('已收藏');
+                            $("#btn_add").addClass("changeColor");
+                        }
+                    }else{
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err.message);
+                }
+            });
+            //加载菜谱详情页
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8088/cookbook/' + cookbookId + '/info',
@@ -147,7 +167,7 @@
                     $("#btn_add").text('已收藏');
                     $("#btn_add").addClass("changeColor");
                     /*console.log($("#myModalLabel").text());
-                    console.log($("textarea[name='collectReason']").val());*/
+                     console.log($("textarea[name='collectReason']").val());*/
                     //收藏菜谱
                     $.ajax({
                         url: 'http://localhost:8088/collect/add',
@@ -228,7 +248,7 @@
         </div>
     </div>
     <div>
-        <a  class="avatar">
+        <a class="avatar">
             <img id="userPhoto" style="width: 60px;height: 60px"/>
             <span id="username"></span>
         </a>
@@ -247,7 +267,7 @@
     <!--一个div展示菜谱的示例作品-->
     <div class="collect"><a id="moveToWork" class="collect-button button large-button w100">上传你的作品</a></div>
     <!--收藏模态框-->
-    <div class="modal fade" id="myModal" tabindex="-1" role="dialog" >
+    <div class="modal fade" id="myModal" tabindex="-1" role="dialog">
         <div class="modal-dialog" role="document">
             <div class="modal-content">
                 <div class="modal-header">
@@ -268,10 +288,10 @@
                 </div>
                 <div class="modal-footer">
                     <button type="button" class="btn btn-default" data-dismiss="modal"><span
-                             ></span>关闭
+                    ></span>关闭
                     </button>
                     <button type="button" id="btn_submit" class="btn btn-primary" data-dismiss="modal"><span
-                             ></span>保存
+                    ></span>保存
                     </button>
                 </div>
             </div>

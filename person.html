@@ -40,6 +40,30 @@
                 $('#other-follow').show();
                 $('#self-follow').hide();
             }
+            //判断关注否
+            $.ajax({
+                url: 'http://localhost:8088/usership/isfollow',
+                type: 'post',
+                contentType: "application/json;charset=utf-8",
+                data: JSON.stringify({
+                    selfName: user,
+                    friendName: username
+                }),
+                dataType: "json",
+                success: function (data) {
+                    if (data.status == 10000) {
+                        if ($("#btnFollow").text() === '关注') {
+                            $("#btnFollow").text("已关注");
+                        }
+                    } else {
+
+                    }
+                },
+                error: function (err) {
+                    console.log(err.message);
+                }
+            });
+            //加载我的主页
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8088/user/' + username + '/info',
@@ -77,22 +101,22 @@
             });
 
             /*$(".works").on('click', function (event) {
-                event.preventDefault();   //阻止默认事件
-                $.ajax({
-                    type: 'GET',
-                    url: 'http://localhost:8088/user/' + username + '/userWorks',
-                    dataType: 'json',
-                    success: function (data) {
-                        if (data.status === 10000) {
-                            //插入数据
+             event.preventDefault();   //阻止默认事件
+             $.ajax({
+             type: 'GET',
+             url: 'http://localhost:8088/user/' + username + '/userWorks',
+             dataType: 'json',
+             success: function (data) {
+             if (data.status === 10000) {
+             //插入数据
 
-                        }
-                    },
-                    error: function (err) {
-                        console.log(err.message);
-                    }
-                })
-            });*/
+             }
+             },
+             error: function (err) {
+             console.log(err.message);
+             }
+             })
+             });*/
             $(".collects").on('click', function (event) {
                 event.preventDefault();   //阻止默认事件
                 $.ajax({
