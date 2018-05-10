@@ -197,7 +197,7 @@
                                         + '<a href="#" class="font14">' + data.value[i].friendName + '</a>'
                                         + '</div>'
 
-                                        + '<div>' + data.value[i].cookCount + '</div>'
+                                        + '<div>"已上传'+ data.value[i].cookCount + '道菜"</div>'
                                         + '</div>'
                                         + '</div>'
                                         + '</li>')
@@ -282,7 +282,8 @@
                         contentType: "application/json;charset=utf-8",
                         data: JSON.stringify({
                             selfName: user,
-                            friendName: username
+                            friendName: username,
+
                         }),
                         dataType: "json",
                         success: function (data) {
