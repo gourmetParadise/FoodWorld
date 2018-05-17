@@ -155,7 +155,7 @@
                 }
             });
 
-            //收藏
+            //收藏按钮
             $("#btn_add").click(function () {
                 console.log($("#btn_add").hasClass("changeColor"));
                 console.log($("#btn_add").text());
@@ -165,7 +165,7 @@
                     $("#btn_add").text('已收藏');
                     $("#btn_add").addClass("changeColor");
                 }else{
-                    //取消收藏菜谱
+                    //取消收藏
                     $.ajax({
                         url: 'http://localhost:8088/collect/' + cookbookId + '/' + user + '/delete',
                         type: 'get',
@@ -185,7 +185,7 @@
                     });
                 }
             });
-            //触发保存即收藏
+            //点击保存即收藏
             $("#btn_submit").click(function () {
                 $.ajax({
                     url: 'http://localhost:8088/collect/add',
