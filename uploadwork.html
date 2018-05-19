@@ -64,11 +64,12 @@
                     url: "http://localhost:8088/work/uploadMessage",
                     type: "POST",
                     contentType: "application/json;charset=utf-8",
-                    data: JSON.stringify({user: user, cookbookId: cookbookId, workId: workTempId, workDesc: workDesc}),
+                    data: JSON.stringify({userName: user, cookbookId: cookbookId, workId: workTempId, workDesc: workDesc}),
                     dataType: "json",
                     success: function (data) {
                         if (data.status == 10000) {
                             console.log(data.value);//上传作品成功
+                            window.location.href = "workDetail.html?workId=" + workTempId;
                         } else {
 
                         }

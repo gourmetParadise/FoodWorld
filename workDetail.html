@@ -1,0 +1,135 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+    <link href="style/bootstrap.min.css" rel="stylesheet">
+    <link href="style/base.css" rel="stylesheet" type="text/css"/>
+    <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
+    <script type="text/javascript" src="js/bootstrap.min.js"></script>
+    <style>
+        .score label{
+            margin: 7px 0;
+        }
+        .display-block{
+            display: block;
+        }
+        /*评价菜谱按钮*/
+        .collect {
+            margin-top: 10px;
+        }
+
+        .collect .button {
+            overflow: hidden;
+            height: 44px;
+            line-height: 44px;
+        }
+
+        .collect .collect-button {
+            width: 98px;
+            display: inline-block;
+            text-align: center;
+        }
+
+        .collect .large-button {
+            font-size: 15px;
+        }
+
+        .button {
+            color: #fff;
+            background-color: #dd3915;
+        }
+    </style>
+    <script type="text/javascript">
+        $(function () {
+            var workId = location.search.split('=')[1];
+
+            $.ajax({
+                type: 'GET',
+                url: 'http://localhost:8088/work/' + workId + '/info',
+                dataType: 'json',
+                success: function(data){
+                    if(data.status === 10000){
+                        $("#workImg").attr("src", data.value.workImage);
+                        $("#workDesc").html(data.value.workDesc);
+                    }
+                },
+                error: function (err) {
+                    console.log(err.message);
+                }
+            });
+
+            $("#btn_score").click(function(){
+                var score = parseInt($("input[name='rating']:checked").val());
+                $.ajax({
+                    url: "http://localhost:8088/work/workScore",
+                    type: "POST",
+                    contentType: "application/json;charset=utf-8",
+                    data: JSON.stringify({workScore: score, workId: workId}),
+                    dataType: "json",
+                    success: function (data) {
+                        if (data.status == 10000) {
+                            alert(data.value);
+                        } else {
+                            alert("评论失败");
+                        }
+                    },
+                    error: function (err) {
+                        console.log(err.message);
+                    }
+                })
+            })
+        })
+    </script>
+</head>
+<body>
+<div class="food-body">
+    <div id="header" class="grid-clear ">
+        <div class="grid" id="logo">
+            <a href=" " class="settings-text">
+                Cook In My Life
+            </a>
+        </div>
+        <div class="grid main-menu-block">
+            <ul id="main-menu">
+                <li class="settings-txt"><a>首页</a></li>
+                <li class="settings-txt"><a href="cookCommunity.html">新秀菜谱</a></li>
+                <li id="uploadLink" class="settings-txt"><a>上传菜谱</a></li>
+                <li id="userLink" class="settings-txt"><a>我的主页</a></li>
+                <li class="settings-txt"><a href="login.html">登录|注册</a></li>
+            </ul>
+        </div>
+    </div>
+    <div>
+        <img id="workImg" style="width: 712px;height: 439px" class="img-responsive"/>
+    </div>
+    <h3>心得</h3>
+    <div id="workDesc"></div>
+    <div class="score">
+        <h3>评价菜谱</h3>
+        <label class="display-block">
+            <input type="radio" name="rating" value="10">
+            好极了
+        </label>
+        <label class="display-block">
+            <input type="radio" name="rating" value="8">
+            挺好
+        </label>
+        <label class="display-block">
+            <input type="radio" name="rating" value="6">
+            一般
+        </label>
+        <label class="display-block">
+            <input type="radio" name="rating" value="4">
+            不太好
+        </label>
+        <div class="collect">
+            <a id="btn_score" class="button large-button collect-button">评价菜谱</a>
+        </div>
+    </div>
+    <div id="footer">
+        <div class="copyright">Copyright © 2018 美食家乐园网&nbsp;All Rights Reserved.</div>
+    </div>
+</div>
+</body>
+</html>
