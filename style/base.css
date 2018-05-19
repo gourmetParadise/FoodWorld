@@ -116,6 +116,12 @@ body {
     text-align: center;
     padding: 20px 0;
 }
+#gotop {
+    display: none;
+    position: fixed;
+    right:10px;
+    bottom: 0;
+}
 
 /*菜谱等展示*/
 .profile {

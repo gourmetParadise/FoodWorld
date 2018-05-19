@@ -28,16 +28,16 @@
 
         /*轮播*/
         #banner {
-            width: 850px;
-            height: 450px;
+            width: 860px;
+            height: 430px;
             position: relative;
             overflow: hidden;
         }
 
         #banner_list img {
             border: 0;
-            width: 850px;
-            height: 450px;
+            width: 860px;
+            height: 430px;
         }
 
         #banner ul {
@@ -70,6 +70,11 @@
         #banner_list a {
             position: absolute;
         }
+        /*更多*/
+        .fr{
+            float: right;
+            font-size: 14px;
+        }
     </style>
     <script type="text/javascript">
         var t = n = 0, count;
@@ -99,11 +104,35 @@
             }, function () {
                 t = setInterval("showAuto()", 4000);
             });
+            /*回到顶部*/
+            $("#gotop").click(function (e) {
+                //以1秒的间隔返回顶部
+                $('body,html').animate({scrollTop: 0}, 1000);
+            });
+            goTop();//实现回到顶部元素的渐显与渐隐
+
+            /*搜索回车事件*/
+            $('#cookSearch').keypress(function(event){
+                var v = $(this).val();
+                if(event.keyCode == '13')
+                {
+                    alert('您输入的内容是：' + v);
+                }
+            });
         });
 
         function showAuto() {
             n = n >= (count - 1) ? 0 : ++n;
             $("#banner li").eq(n).trigger('click');
+        }
+        function goTop() {
+            $(window).scroll(function (e) {
+                //若滚动条离顶部大于100元素
+                if ($(window).scrollTop() > 100)
+                    $("#gotop").fadeIn(1000);//以1秒的间隔渐显id=gotop的元素
+                else
+                    $("#gotop").fadeOut(1000);//以1秒的间隔渐隐id=gotop的元素
+            });
         }
     </script>
 </head>
@@ -111,7 +140,7 @@
 <div class="food-body ">
     <div id="header" class="grid-clear">
         <div class="search display-inline">
-            <input type="text" class="form-control" placeholder="搜索菜谱">
+            <input id="cookSearch" type="text" class="form-control" placeholder="搜索菜谱">
         </div>
         <div class="grid main-menu-block display-inline">
             <ul id="main-menu">
@@ -183,7 +212,7 @@
                 </li>
             </ul>
         </div>
-        <div class="col-md-8">
+        <div class="col-md-10">
             <div id="banner">
                 <ul>
                     <li class="on">1</li>
@@ -198,11 +227,52 @@
                     <a href="#" target="_blank"><img src="images/09.jpg"/></a>
                 </div>
             </div>
+            <div>
+                <h3>访问排行<a href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>最近流行<a href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
+                    </div>
+                </div>
+            </div>
+            <div>
+                <h3>评分排行<a href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
+                <div class="row">
+                    <div class="col-md-4">
+                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
+                    </div>
+                    <div class="col-md-4">
+                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
-
-    <div id="footer">
-        <div class="copyright">Copyright © 2018 美食家乐园网&nbsp;All Rights Reserved.</div>
+    <div id="gotop">
+        <img src="images/backToTop.jpg"/>
     </div>
 </div>
 </body>
