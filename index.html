@@ -130,23 +130,24 @@
                         showType(1, "occasion");
                         showType(2, "effect");
                         showType(3, "crowd");
+                        function showType(index, id) {
+                            $("#" + id).html("");
+                            var type = data.value[index].type;
+                            for (var i = 0; i < type.length; i++) {
+                                $("#" + id).append('<li>'
+                                        + '<a href="typeDetail.html?typeId=' + type[i].typeId + '">'
+                                        + type[i].typeName
+                                        + '</a>'
+                                        + '</li>')
+                            }
+                        }
                     }
                 },
                 error: function(err){
                     console.log(err.message);
                 }
             });
-            function showType(index, id) {
-                $("#" + id).html("");
-                var type = data.value[index].type;
-                for (var i = 0; i < type.length; i++) {
-                    $("#" + id).append('<li>'
-                            + '<a href="typeDetail.html?typeId=' + type[i].typeId + '">'
-                            + type[i].typeName
-                            + '</a>'
-                            + '</li>')
-                }
-            }
+
         });
 
         function showAuto() {
