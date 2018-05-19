@@ -70,8 +70,9 @@
         #banner_list a {
             position: absolute;
         }
+
         /*更多*/
-        .fr{
+        .fr {
             float: right;
             font-size: 14px;
         }
@@ -112,13 +113,40 @@
             goTop();//实现回到顶部元素的渐显与渐隐
 
             /*搜索回车事件*/
-            $('#cookSearch').keypress(function(event){
+            $('#cookSearch').keypress(function (event) {
                 var v = $(this).val();
-                if(event.keyCode == '13')
-                {
+                if (event.keyCode == '13') {
                     alert('您输入的内容是：' + v);
                 }
             });
+            /*页面加载*/
+            $.ajax({
+                type: 'get',
+                url: 'http://localhost:8088/category/list',
+                dataType: 'json',
+                success: function(data){
+                    if(data.status === 10000){
+                        showType(0, "cookType");
+                        showType(1, "occasion");
+                        showType(2, "effect");
+                        showType(3, "crowd");
+                    }
+                },
+                error: function(err){
+                    console.log(err.message);
+                }
+            });
+            function showType(index, id) {
+                $("#" + id).html("");
+                var type = data.value[index].type;
+                for (var i = 0; i < type.length; i++) {
+                    $("#" + id).append('<li>'
+                            + '<a href="typeDetail.html?typeId=' + type[i].typeId + '">'
+                            + type[i].typeName
+                            + '</a>'
+                            + '</li>')
+                }
+            }
         });
 
         function showAuto() {
@@ -161,14 +189,14 @@
                         菜式
                     </a>
                     <ul id="cookType" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                        <li><a href="mytask">家常菜</a></li>
+                        <!--<li><a href="mytask">家常菜</a></li>
                         <li><a href="mytask">快手菜</a></li>
                         <li><a href="mytask">下饭菜</a></li>
                         <li><a href="mytask">素菜</a></li>
                         <li><a href="mytask">大鱼大肉</a></li>
                         <li><a href="mytask">下酒菜</a></li>
                         <li><a href="mytask">小清新</a></li>
-                        <li><a href="mytask">创意菜</a></li>
+                        <li><a href="mytask">创意菜</a></li>-->
                     </ul>
                 </li>
                 <li>
@@ -176,14 +204,14 @@
                         特殊场合
                     </a>
                     <ul id="occasion" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                        <li><a href="mytask">早餐</a></li>
+                        <!--<li><a href="mytask">早餐</a></li>
                         <li><a href="mytask">下午茶</a></li>
                         <li><a href="mytask">便当</a></li>
                         <li><a href="mytask">圣诞节</a></li>
                         <li><a href="mytask">年夜饭</a></li>
                         <li><a href="mytask">深夜食堂</a></li>
                         <li><a href="mytask">情人节</a></li>
-                        <li><a href="mytask">宵夜</a></li>
+                        <li><a href="mytask">宵夜</a></li>-->
                     </ul>
                 </li>
                 <li>
@@ -191,11 +219,11 @@
                         功效
                     </a>
                     <ul id="effect" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                        <li><a href="mytask">减肥</a></li>
+                        <!--<li><a href="mytask">减肥</a></li>
                         <li><a href="mytask">美容</a></li>
                         <li><a href="mytask">润肺抗燥</a></li>
                         <li><a href="mytask">补血</a></li>
-                        <li><a href="mytask">清热祛火</a></li>
+                        <li><a href="mytask">清热祛火</a></li>-->
                     </ul>
                 </li>
                 <li>
@@ -203,11 +231,11 @@
                         人群
                     </a>
                     <ul id="crowd" class="nav nav-list collapse secondmenu" style="height: 0px;">
-                        <li><a href="mytask">儿童</a></li>
+                        <!--<li><a href="mytask">儿童</a></li>
                         <li><a href="mytask">婴幼儿</a></li>
                         <li><a href="mytask">老人</a></li>
                         <li><a href="mytask">孕产妇</a></li>
-                        <li><a href="mytask">宝宝食谱</a></li>
+                        <li><a href="mytask">宝宝食谱</a></li>-->
                     </ul>
                 </li>
             </ul>
