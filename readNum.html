@@ -9,22 +9,20 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () {
-            var typeId = location.search.split('=')[1];
-
             $.ajax({
                 type: 'GET',
-                url: 'http://localhost:8088/category/' + typeId + '/list',
+                url: 'http://localhost:8088/category/readNum',
                 dataType: 'json',
                 success: function(data){
                     if(data.status === 10000){
                         //插入数据
                         for (var i = 0; i < data.value.length; i++) {
-                            $("#typeList").append(' <div class="col-sm-6 col-md-4">'
+                            $("#readNum").append(' <div class="col-sm-6 col-md-4">'
                                     + '<div class="thumbnail">'
                                     + '<a href="cookbookDetail.html?cookbookId=' + data.value[i].cookbookId + '"><img id="food-img" src=' + data.value[i].cookImage + ' alt="..."/></a>'
                                     + '<div class="caption row">'
                                     + '<div class="col-md-6" id="food-name">' + data.value[i].cookbookName + '</div>'
-                                    + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
+                                    + '<div class="col-md-6" id="food-date">'+ data.value[i].readNum + '</div>'
                                     + '</div>'
                                     + '<p id="food-description">' + data.value[i].cookbookDesc + '</p>'
                                     + '</div>'
@@ -58,7 +56,7 @@
             </ul>
         </div>
     </div>
-    <div class="row" id="typeList" style="margin-top: 30px; !important;">
+    <div class="row" id="readNum" style="margin-top: 30px; !important;">
 
     </div>
 </div>

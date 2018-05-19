@@ -147,6 +147,16 @@
                     console.log(err.message);
                 }
             });
+            $("#readNum").click(function () {
+                window.location.href = "readNum.html";
+            });
+            $("#cookNum").click(function () {
+                window.location.href = "cookNum.html";
+            });
+            $("#score").click(function () {
+                window.location.href = "score.html";
+            });
+
 
         });
 
@@ -257,7 +267,7 @@
                 </div>
             </div>
             <div>
-                <h3>访问排行<a href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
+                <h3>访问排行<a id="readNum" href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
                 <div class="row">
                     <div class="col-md-4">
                         <a href="#" target="_blank"><img src="images/07.jpg"/></a>
@@ -271,7 +281,7 @@
                 </div>
             </div>
             <div>
-                <h3>最近流行<a href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
+                <h3>最近流行<a id="cookNum" href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
                 <div class="row">
                     <div class="col-md-4">
                         <a href="#" target="_blank"><img src="images/07.jpg"/></a>
@@ -285,7 +295,7 @@
                 </div>
             </div>
             <div>
-                <h3>评分排行<a href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
+                <h3>评分排行<a id="score" href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
                 <div class="row">
                     <div class="col-md-4">
                         <a href="#" target="_blank"><img src="images/07.jpg"/></a>
