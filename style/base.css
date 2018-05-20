@@ -131,6 +131,7 @@ body {
 #food-description {
     text-align: center;
     font-size: 16px;
+    overflow: hidden;
 }
 
 #food-name {
