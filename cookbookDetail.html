@@ -50,6 +50,12 @@
         .changeColor {
             background-color: #ccc7c2;
         }
+
+        /*关键字*/
+        #cookbookType{
+            margin-top: 8px;
+            font-size: 15px;
+        }
     </style>
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
@@ -106,7 +112,7 @@
                         $("#username").html(data.value.userName);
                         $("#cookbookDesc").html(data.value.cookbookDesc);
                         //cookbookType
-                        $("#cookbookType").html(data.value.cookbookType);
+                        $("#cookbookType").append(data.value.cookbookType);
                         var materials = data.value.ingreList;
                         for (var i = 0; i < materials.length; i++) {
                             var source = materials[i].source;
@@ -245,7 +251,7 @@
     <div>
         <img id="cookImg" style="width: 712px;height: 439px" class="img-responsive"/>
     </div>
-    <div id="cookbookType"></div>
+    <div id="cookbookType">关键词&nbsp;&nbsp;</div>
     <div class="row user-hide">
         <div class="col-md-3 col-md-offset-7 collect">
             <a id="btn_add" class="button large-button collect-button">收藏</a>
