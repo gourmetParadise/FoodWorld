@@ -122,6 +122,63 @@
             /*页面加载*/
             $.ajax({
                 type: 'get',
+                url: 'http://localhost:8088/category/limit',
+                dataType: 'json',
+                success: function(data){
+                    if(data.status === 10000){
+                        //分别插入数据
+                        $(".read").html("");
+                        for (var i = 0; i < data.value.readNum.length; i++) {
+                            $(".read").append(' <div class="col-sm-6 col-md-4">'
+                                    + '<div class="thumbnail">'
+                                    + '<a href="cookbookDetail.html?cookbookId=' + data.value.readNum[i].cookbookId + '"><img id="food-img" src=' + data.value.readNum[i].cookImage + ' alt="..."/></a>'
+                                    + '<div class="caption row">'
+                                    + '<div class="col-md-6" id="food-name">' + data.value.readNum[i].cookbookName + '</div>'
+                                    + '<div class="col-md-6" id="food-date">' + data.value.readNum[i].readNum + '</div>'
+                                    + '</div>'
+                                    + '<p id="food-description">' + data.value.readNum[i].cookbookDesc + '</p>'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</div>')
+                        }
+                        $(".cook").html("");
+                        for (var i = 0; i < data.value.cookNum.length; i++) {
+                            $(".cook").append(' <div class="col-sm-6 col-md-4">'
+                                    + '<div class="thumbnail">'
+                                    + '<a href="cookbookDetail.html?cookbookId=' + data.value.cookNum[i].cookbookId + '"><img id="food-img" src=' + data.value.cookNum[i].cookImage + ' alt="..."/></a>'
+                                    + '<div class="caption row">'
+                                    + '<div class="col-md-6" id="food-name">' + data.value.cookNum[i].cookbookName + '</div>'
+                                    + '<div class="col-md-6" id="food-date">' + data.value.cookNum[i].cookNum + '</div>'
+                                    + '</div>'
+                                    + '<p id="food-description">' + data.value.cookNum[i].cookbookDesc + '</p>'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</div>')
+                        }
+                        $(".score").html("");
+                        for (var i = 0; i < data.value.score.length; i++) {
+                            $(".score").append(' <div class="col-sm-6 col-md-4">'
+                                    + '<div class="thumbnail">'
+                                    + '<a href="cookbookDetail.html?cookbookId=' + data.value.score[i].cookbookId + '"><img id="food-img" src=' + data.value.score[i].cookImage + ' alt="..."/></a>'
+                                    + '<div class="caption row">'
+                                    + '<div class="col-md-6" id="food-name">' + data.value.score[i].cookbookName + '</div>'
+                                    + '<div class="col-md-6" id="food-date">' + data.value.score[i].score + '</div>'
+                                    + '</div>'
+                                    + '<p id="food-description">' + data.value.score[i].cookbookDesc + '</p>'
+                                    + '</div>'
+                                    + '</div>'
+                                    + '</div>')
+                        }
+
+                    }
+                },
+                error: function(err){
+                    console.log(err.message);
+                }
+            });
+
+            $.ajax({
+                type: 'get',
                 url: 'http://localhost:8088/category/list',
                 dataType: 'json',
                 success: function(data){
@@ -268,44 +325,20 @@
             </div>
             <div>
                 <h3>访问排行<a id="readNum" href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
-                <div class="row">
-                    <div class="col-md-4">
-                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
-                    </div>
+                <div class="row read">
+
                 </div>
             </div>
             <div>
                 <h3>最近流行<a id="cookNum" href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
-                <div class="row">
-                    <div class="col-md-4">
-                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
-                    </div>
+                <div class="row cook">
+
                 </div>
             </div>
             <div>
                 <h3>评分排行<a id="score" href="/explore/rising/" style="font-size: 16px;">>>更多</a></h3>
-                <div class="row">
-                    <div class="col-md-4">
-                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
-                    </div>
-                    <div class="col-md-4">
-                        <a href="#" target="_blank"><img src="images/07.jpg"/></a>
-                    </div>
+                <div class="row score">
+
                 </div>
             </div>
         </div>

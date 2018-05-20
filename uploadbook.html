@@ -8,6 +8,7 @@
     <style>
         .topic{
             margin-top: 30px;
+            margin-bottom: 30px;
         }
     </style>
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
@@ -141,7 +142,8 @@
                 var cookbookSteps = $("#cookbookSteps").val();
                 var cookbookTips = $("#cookbookTips").val();
                 var cityV = $("#c1").find("option:checked").val();
-                console.log(cityV);
+                var cookbookType = $("#cookbookType").val().trim();
+
                 $.ajax({
                     url: "http://localhost:8088/cookbook/uploadMessage",
                     type: "POST",
@@ -154,7 +156,8 @@
                         materials: materials,
                         cookbookSteps: cookbookSteps,
                         cookbookTips: cookbookTips,
-                        typeId: cityV
+                        typeId: cityV,
+                        cookbookType: cookbookType
                     }),
                     dataType: "json",
                     success: function (data) {
@@ -194,14 +197,14 @@
         </div>
     </div>
     <h2>菜名
-        <input type="text" id="cookbookName"/>
+        <input type="text" id="cookbookName" class="form-control"/>
     </h2>
     <div>
         <div>
             <img id="imgShow" style="height: 400px;width: 600px;"/>
         </div>
         <form class="form-horizontal" enctype='multipart/form-data' action='javascript:;' id="frmUploadFile">
-            <input type="file" name="file"/>
+            <input type="file" name="file" />
             <span class="help-inline" id="spanMessage"> </span>
         </form>
     </div>
@@ -212,8 +215,8 @@
     <h2 class="text-left">用料</h2>
     <table>
         <tr>
-            <td>用料：<input type="text" id="source" value="" placeholder="食材 : 如鸡蛋"/></td>
-            <td>数量： <input type="text" id="amount" value="" placeholder="用量 : 如一个"/></td>
+            <td>用料：<input class="form-control" type="text" id="source" value="" placeholder="食材 : 如鸡蛋"/></td>
+            <td>数量： <input class="form-control" type="text" id="amount" value="" placeholder="用量 : 如一个"/></td>
             <td><input type="button" id="addBtn" value="添加"></td>
         </tr>
     </table>
@@ -240,6 +243,10 @@
         </select>
         <select name="c1" id="c1" >
         </select>
+    </div>
+    <div>
+        <input id="cookbookType" type="text" class="form-control" placeholder="添加关键字">
+        <span>如：快手菜,早餐,饼干,零食等</span>
     </div>
     <button id="uploadBookBtn" type="button" class="btn btn-info btn-lg" style="margin-top: 30px;">
         上传菜谱

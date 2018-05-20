@@ -105,6 +105,8 @@
                         $("#userPhoto").attr("src", data.value.userPhoto);
                         $("#username").html(data.value.userName);
                         $("#cookbookDesc").html(data.value.cookbookDesc);
+                        //cookbookType
+                        $("#cookbookType").html(data.value.cookbookType);
                         var materials = data.value.ingreList;
                         for (var i = 0; i < materials.length; i++) {
                             var source = materials[i].source;
@@ -244,6 +246,7 @@
         <img id="cookImg" style="width: 712px;height: 439px" class="img-responsive"/>
     </div>
     <div class="row user-hide">
+        <div class="col-md-2" id="cookbookType"></div>
         <div class="col-md-3 col-md-offset-7 collect">
             <a id="btn_add" class="button large-button collect-button">收藏</a>
         </div>
