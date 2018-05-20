@@ -6,9 +6,13 @@
     <link href="style/bootstrap.min.css" rel="stylesheet">
     <link href="style/base.css" rel="stylesheet" type="text/css"/>
     <style>
-        .topic{
+        .topic {
             margin-top: 30px;
             margin-bottom: 30px;
+        }
+
+        #cookbookName, #cookbookType {
+            width: 40%;
         }
     </style>
     <script type="text/javascript" src="js/jquery-3.1.0.min.js"></script>
@@ -24,7 +28,7 @@
         }
         add(0, ["1:菜式", "2:特殊场合", "3:功效", "4:人群"]);
         add(1, ["1:家常菜", "2:快手菜", "3:下饭菜", "4:素菜", "5:大鱼大肉", "6:下酒菜", "7:小清新", "8:创意菜"]);
-        add(2, ["9:早餐", "10:下午茶", "11:便当", "12:圣诞节", "13:年夜饭", "14:深夜食堂", "15:情人节","16:宵夜"]);
+        add(2, ["9:早餐", "10:下午茶", "11:便当", "12:圣诞节", "13:年夜饭", "14:深夜食堂", "15:情人节", "16:宵夜"]);
         add(3, ["17:减肥", "18:美容", "19:润肺抗燥", "20:补血", "21:清热祛火"]);
         add(4, ["22:儿童", "23:婴幼儿", "24:老人", "25:孕产妇", "26:宝宝食谱"]);
 
@@ -62,16 +66,16 @@
 
             //导航 上传与我的主页
             $("#uploadLink").click(function () {
-                if(user != null){
+                if (user != null) {
                     window.location.href = "uploadbook.html";
-                }else{
+                } else {
                     window.location.href = "login.html";
                 }
             });
             $("#userLink").click(function () {
-                if(user != null){
+                if (user != null) {
                     window.location.href = "person.html?username=" + user;
-                }else{
+                } else {
                     window.location.href = "login.html";
                 }
             });
@@ -104,6 +108,7 @@
                         .append($("<td>").append(amount))
                         .append($("<td>").append(btn));
             }
+
             //专题联动框
             initProvinceCity($("#p1"), $("#c1"));
             /*用料表格---*/
@@ -164,7 +169,7 @@
                         if (data.status == 10000) {
                             console.log(data.value);//上传菜谱成功
                             //跳转到菜谱详情页
-                            window.location.href = "cookbookDetail.html?cookbookId="+cookTempId;
+                            window.location.href = "cookbookDetail.html?cookbookId=" + cookTempId;
                         } else {
 
                         }
@@ -204,7 +209,7 @@
             <img id="imgShow" style="height: 400px;width: 600px;"/>
         </div>
         <form class="form-horizontal" enctype='multipart/form-data' action='javascript:;' id="frmUploadFile">
-            <input type="file" name="file" />
+            <input type="file" name="file"/>
             <span class="help-inline" id="spanMessage"> </span>
         </form>
     </div>
@@ -241,7 +246,7 @@
     <div class="topic">
         <select name="p1" id="p1">
         </select>
-        <select name="c1" id="c1" >
+        <select name="c1" id="c1">
         </select>
     </div>
     <div>

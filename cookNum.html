@@ -9,6 +9,23 @@
     <script type="text/javascript" src="js/bootstrap.min.js"></script>
     <script type="text/javascript">
         $(function () {
+            var user = sessionStorage.getItem("user");
+
+            //导航 上传与我的主页
+            $("#uploadLink").click(function () {
+                if (user != null) {
+                    window.location.href = "uploadbook.html";
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
+            $("#userLink").click(function () {
+                if (user != null) {
+                    window.location.href = "person.html?username=" + user;
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
             $.ajax({
                 type: 'GET',
                 url: 'http://localhost:8088/category/cookNum',

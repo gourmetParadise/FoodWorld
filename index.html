@@ -80,6 +80,24 @@
     <script type="text/javascript">
         var t = n = 0, count;
         $(document).ready(function () {
+            var user = sessionStorage.getItem("user");
+
+            //导航 上传与我的主页
+            $("#uploadLink").click(function () {
+                if (user != null) {
+                    window.location.href = "uploadbook.html";
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
+            $("#userLink").click(function () {
+                if (user != null) {
+                    window.location.href = "person.html?username=" + user;
+                } else {
+                    window.location.href = "login.html";
+                }
+            });
+
             count = $("#banner_list a").length;
             $("#banner_list a:not(:first-child)").hide();
             $("#banner_info").html($("#banner_list a:first-child").find("img").attr('alt'));
