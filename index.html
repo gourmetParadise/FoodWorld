@@ -71,10 +71,9 @@
             position: absolute;
         }
 
-        /*更多*/
-        .fr {
-            float: right;
-            font-size: 14px;
+        h2{
+            margin-left: auto;
+            margin-right: auto;
         }
     </style>
     <script type="text/javascript">
@@ -135,7 +134,7 @@
                 var v = $(this).val().trim();
                 if (event.keyCode == '13') {
                     if(!v){
-                        alert("输入的内容不能为空");
+                        alert("请输入菜谱、食材等关键字");
                     }else{
                         $.ajax({
                             url: "http://localhost:8088/search/list",
@@ -163,7 +162,7 @@
                                     }
                                 }
                                 if(data.status === 10001){
-                                    alert(data.value.msg);
+                                    $("#result").html("<h2>您搜索的内容不存在</h2>");
                                 }
                             },
                             error: function (err) {
