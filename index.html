@@ -143,9 +143,9 @@
                             data: JSON.stringify({searchParam: v}),
                             dataType: "json",
                             success: function (data) {
+                                $("#result").css("display", "block");
+                                $(".homePage").css("display", "none");
                                 if (data.status == 10000) {
-                                    $("#result").css("display", "block");
-                                    $(".homePage").css("display", "none");
                                     $("#result").html("");
                                     for (var i = 0; i < data.value.length; i++) {
                                         $("#result").append(' <div class="col-sm-6 col-md-4">'
@@ -162,7 +162,7 @@
                                     }
                                 }
                                 if(data.status === 10001){
-                                    $("#result").html("<h2>您搜索的内容不存在</h2>");
+                                    $("#result").html(data.value.msg);
                                 }
                             },
                             error: function (err) {
