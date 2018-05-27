@@ -145,7 +145,7 @@
                             dataType: "json",
                             success: function (data) {
                                 if (data.status == 10000) {
-                                    $("#result").css("display:", "block");
+                                    $("#result").css("display", "block");
                                     $(".homePage").css("display", "none");
                                     $("#result").html("");
                                     for (var i = 0; i < data.value.length; i++) {
