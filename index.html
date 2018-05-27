@@ -132,9 +132,44 @@
 
             /*搜索回车事件*/
             $('#cookSearch').keypress(function (event) {
-                var v = $(this).val();
+                var v = $(this).val().trim();
                 if (event.keyCode == '13') {
-                    alert('您输入的内容是：' + v);
+                    if(!v){
+                        alert("输入的内容不能为空");
+                    }else{
+                        $.ajax({
+                            url: "http://localhost:8088/search/list",
+                            type: "POST",
+                            contentType: "application/json;charset=utf-8",
+                            data: JSON.stringify({searchParam: v}),
+                            dataType: "json",
+                            success: function (data) {
+                                if (data.status == 10000) {
+                                    $("#result").css("display:", "block");
+                                    $(".homePage").css("display", "none");
+                                    $("#result").html("");
+                                    for (var i = 0; i < data.value.length; i++) {
+                                        $("#result").append(' <div class="col-sm-6 col-md-4">'
+                                                + '<div class="thumbnail">'
+                                                + '<a href="cookbookDetail.html?cookbookId=' + data.value[i].cookbookId + '"><img id="food-img" src=' + data.value[i].cookImage + ' alt="..."/></a>'
+                                                + '<div class="caption row">'
+                                                + '<div class="col-md-6" id="food-name">' + data.value[i].cookbookName + '</div>'
+                                                + '<div class="col-md-6" id="food-date">' + '不久前' + '</div>'
+                                                + '</div>'
+                                                + '<p id="food-description">' + data.value[i].cookbookDesc + '</p>'
+                                                + '</div>'
+                                                + '</div>'
+                                                + '</div>')
+                                    }
+                                } else {
+
+                                }
+                            },
+                            error: function (err) {
+                                console.log(err.message);
+                            }
+                        })
+                    }
                 }
             });
             /*页面加载*/
@@ -267,8 +302,12 @@
             </ul>
         </div>
     </div>
+    <!--搜查结果-->
+    <div id="result" style="margin-top: 30px; !important; display: none">
+
+    </div>
     <!--content-->
-    <div class="row">
+    <div class="row homePage">
         <div class="col-md-2">
             <ul id="main-nav" class="nav nav-tabs nav-stacked">
                 <li>
