@@ -161,8 +161,9 @@
                                                 + '</div>'
                                                 + '</div>')
                                     }
-                                } else {
-
+                                }
+                                if(data.status === 10001){
+                                    alert(data.value.msg);
                                 }
                             },
                             error: function (err) {
